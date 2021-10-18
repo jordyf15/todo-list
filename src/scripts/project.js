@@ -26,7 +26,7 @@ class Project{
     }
 
     addTodo(todo){
-        this.#todos.add(todo);
+        this.#todos.push(todo);
     }
 
     removeTodo(todoId){
