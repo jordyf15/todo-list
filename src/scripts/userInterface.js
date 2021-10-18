@@ -1,3 +1,5 @@
+import app from './app.js';
+
 function renderSkeleton(){
     renderHeader();
     renderMain();
@@ -21,6 +23,7 @@ function renderMain(){
     const projectSection = document.createElement('section');
     projectSection.id = 'project-section';
     main.appendChild(projectSection);
+    renderProjects();
 
     const todoListSection = document.createElement('section');
     todoListSection.id = 'todo-list-section';
@@ -48,6 +51,21 @@ function renderFooter(){
     linkedinAnchor.target = '_blank';
     linkedinAnchor.innerHTML = '<i class="fab fa-linkedin"></i>';
     footerText.appendChild(linkedinAnchor);
+}
+
+function renderProjects(){
+    const projectSection = document.querySelector('#project-section');
+
+    const projects = app.getStorage();
+    projects.forEach((project)=>{
+        const viewProjectButton = document.createElement('button');
+        viewProjectButton.className = 'view-project-buttons';
+        viewProjectButton.textContent = project.name;
+        viewProjectButton.addEventListener('click',()=>{
+            console.log(project.id);
+        });
+        projectSection.appendChild(viewProjectButton);
+    });
 }
 
 export {
