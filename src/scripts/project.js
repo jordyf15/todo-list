@@ -33,3 +33,7 @@ class Project{
         this.#todos = this.#todos.filter((todo)=> todo.id != todoId);
     }
 }
+
+export {
+    Project
+}
