@@ -27,6 +27,9 @@ function renderMain(){
 
     const todoListSection = document.createElement('section');
     todoListSection.id = 'todo-list-section';
+    const todoList = document.createElement('ul');
+    todoList.id = 'todo-list';
+    todoListSection.appendChild(todoList);
     main.appendChild(todoListSection);
 }
 
@@ -66,6 +69,24 @@ function renderSavedProjects(){
     addProjectButton.textContent = '+ Add Project';
     addProjectButton.addEventListener('click', displayAddProjectForm);
     projectSection.appendChild(addProjectButton);
+}
+
+function renderProjectTodos(projectId){
+    const projectTodos = app.getProjectTodos(projectId);
+    const todoList = document.querySelector('#todo-list');
+    projectTodos.forEach((todo)=>{
+        const todoListItem = renderTodoListItem(todo);
+        todoList.appendChild(todoListItem);
+    });
+}
+
+function renderTodoListItem(todo){
+    const todoListItem = document.createElement('li');
+    todoListItem.className = 'todo-list-item';
+    todoListItem.addEventListener('click', ()=>{
+        console.log(todo.id);
+    });
+    return todoListItem;
 }
 
 function displayAddProjectForm(){
@@ -124,7 +145,7 @@ function renderProject(project, parent){
     viewProjectButton.className = 'view-project-buttons';
     viewProjectButton.textContent = project.name;
     viewProjectButton.addEventListener('click',()=>{
-        console.log(project.id);
+        renderProjectTodos(project.id);
     });
 
     const deleteProjectButton = document.createElement('button');

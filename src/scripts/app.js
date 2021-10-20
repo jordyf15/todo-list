@@ -31,7 +31,12 @@ const app = (function(){
         localStorage.setItem(localStorageKey, JSON.stringify(storage));
     }
 
-    return {getStorage, addProject, deleteProject}
+    function getProjectTodos(projectId){
+        const selectedProject = storage.find((project)=>project.id === projectId);
+        return selectedProject.todos;
+    }
+
+    return {getStorage, addProject, deleteProject, getProjectTodos}
 })();
 
 export default app;
