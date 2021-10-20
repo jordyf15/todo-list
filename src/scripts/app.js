@@ -2,11 +2,12 @@ import {Project} from './project';
 
 const app = (function(){
     let storage = [];
-    if(localStorage.getItem("todo-list")){
-        storage = JSON.parse(localStorage.getItem("todo-list"));
+    const localStorageKey = 'todo-list';
+    if(localStorage.getItem(localStorageKey)){
+        storage = JSON.parse(localStorage.getItem(localStorageKey));
     }else{
         setDefaultStorage();
-        localStorage.setItem('todo-list', JSON.stringify(storage));
+        localStorage.setItem(localStorageKey, JSON.stringify(storage));
     }
 
     function setDefaultStorage(){
@@ -18,7 +19,14 @@ const app = (function(){
         return storage;
     }
 
-    return {getStorage}
+    function addProject(projectName){
+        const newProject = new Project(projectName);
+        storage.push(newProject);
+        localStorage.setItem(localStorageKey, JSON.stringify(storage));
+        return newProject;
+    }
+
+    return {getStorage, addProject}
 })();
 
 export default app;

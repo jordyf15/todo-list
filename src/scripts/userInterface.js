@@ -66,6 +66,83 @@ function renderProjects(){
         });
         projectSection.appendChild(viewProjectButton);
     });
+
+    const addProjectButton = document.createElement('button');
+    addProjectButton.id = "add-project-button";
+    addProjectButton.textContent = '+ Add Project';
+    addProjectButton.addEventListener('click', displayAddProjectForm);
+    projectSection.appendChild(addProjectButton);
+}
+
+function displayAddProjectForm(){
+    const projectSection = document.querySelector('#project-section');
+    const addProjectButton = document.querySelector('#add-project-button');
+    projectSection.removeChild(addProjectButton);
+
+    const addProjectForm = document.createElement('form');
+    addProjectForm.id = 'add-project-form';
+    projectSection.appendChild(addProjectForm);
+
+
+    const addProjectInput = document.createElement('input');
+    addProjectInput.type = 'text';
+    addProjectInput.placeholder = 'Project name';
+    addProjectInput.id = 'add-project-input';
+    addProjectInput.required = true;
+    addProjectForm.appendChild(addProjectInput);
+
+    const alert = document.createElement('p');
+    alert.id = 'alert-message';
+    addProjectForm.appendChild(alert);
+
+    const confirmAddProjectButton = document.createElement('button');
+    confirmAddProjectButton.type = 'button';
+    confirmAddProjectButton.id = 'confirm-add-project-button';
+    confirmAddProjectButton.textContent = 'Add';
+    confirmAddProjectButton.addEventListener('click', ()=>{
+        addProject(addProjectInput.value);
+    });
+    addProjectForm.appendChild(confirmAddProjectButton);
+
+    const cancelProjectButton = document.createElement('button');
+    cancelProjectButton.type = 'button';
+    cancelProjectButton.id = 'cancel-add-project-button';
+    cancelProjectButton.textContent = 'Cancel';
+    cancelProjectButton.addEventListener('click', cancelAddProject);
+    addProjectForm.appendChild(cancelProjectButton);
+}
+
+function addProject(projectName){
+    if(projectName.trim() == ""){
+        const alert = document.querySelector('#alert-message');
+        alert.textContent = 'Project name cannot be empty';
+    }else{
+        const newProject = app.addProject(projectName);
+        const projectSection = document.querySelector('#project-section');
+        renderProject(newProject, projectSection);
+    }
+}
+
+function renderProject(project, parent){
+    const viewProjectButton = document.createElement('button');
+    viewProjectButton.className = 'view-project-buttons';
+    viewProjectButton.textContent = project.name;
+    viewProjectButton.addEventListener('click',()=>{
+        console.log(project.id);
+    });
+    parent.appendChild(viewProjectButton);
+}
+
+function cancelAddProject(){
+    const addProjectForm = document.querySelector('#add-project-form');
+    const projectSection = document.querySelector('#project-section');
+    projectSection.removeChild(addProjectForm);
+
+    const addProjectButton = document.createElement('button');
+    addProjectButton.id = "add-project-button";
+    addProjectButton.textContent = '+ Add Project';
+    addProjectButton.addEventListener('click', displayAddProjectForm);
+    projectSection.appendChild(addProjectButton);
 }
 
 export {
