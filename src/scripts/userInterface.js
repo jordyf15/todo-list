@@ -82,8 +82,7 @@ function renderProjectTodos(projectId){
 
     const projectTodos = app.getProjectTodos(projectId);
     projectTodos.forEach((todo)=>{
-        const todoListItem = renderTodoListItem(todo);
-        todoList.appendChild(todoListItem);
+        renderTodoListItem(todo);
     });
 
     const addTodoButton = createAddTodoButton(projectId);
@@ -174,14 +173,8 @@ function addTodoToProject(projectId, title, description, dueDate, priority){
         todoListSection.removeChild(addTodoForm);
         const addTodoButton = createAddTodoButton(projectId);
         todoListSection.appendChild(addTodoButton);
-        renderNewTodo(newTodo);
+        renderTodoListItem(newTodo);
     }
-}
-
-function renderNewTodo(todo){
-    const todoList = document.querySelector('#todo-list');
-    const newTodoListItem = renderTodoListItem(todo);
-    todoList.appendChild(newTodoListItem);
 }
 
 function cancelAddTodoToProject(projectId){
@@ -193,12 +186,13 @@ function cancelAddTodoToProject(projectId){
 }
 
 function renderTodoListItem(todo){
+    const todoList = document.querySelector('#todo-list');
     const todoListItem = document.createElement('li');
     todoListItem.className = 'todo-list-item';
     todoListItem.addEventListener('click', ()=>{
         console.log(todo.id);
     });
-    return todoListItem;
+    todoList.appendChild(todoListItem);
 }
 
 function displayAddProjectForm(){
