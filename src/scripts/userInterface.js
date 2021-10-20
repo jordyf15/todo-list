@@ -186,6 +186,11 @@ function cancelAddTodoToProject(projectId){
     todoListSection.appendChild(addTodoButton);
 }
 
+
+function deleteTodo(todoId, projectId){
+    app.deleteTodo(todoId, projectId);
+}
+
 function renderTodoListItem(todo, projectId){
     const todoList = document.querySelector('#todo-list');
     const todoListItem = document.createElement('li');
@@ -212,18 +217,15 @@ function renderTodoListItem(todo, projectId){
     todoPriority.textContent = todo.priority;
     todoListItem.appendChild(todoPriority);
 
-    const deleteTodo = document.createElement('button');
-    deleteTodo.className = 'delete-todo-button';
-    deleteTodo.textContent = 'delete';
-    deleteTodo.addEventListener('click', (e)=>{
+    const deleteTodoButton = document.createElement('button');
+    deleteTodoButton.className = 'delete-todo-button';
+    deleteTodoButton.textContent = 'delete';
+    deleteTodoButton.addEventListener('click', (e)=>{
         e.stopPropagation();
-        deleteTodo(todo.id, projectId)
+        deleteTodo(todo.id, projectId);
+        todoList.removeChild(todoListItem);
     });
-
-}
-
-function deleteTodo(todoId, projectId){
-
+    todoListItem.appendChild(deleteTodoButton);
 }
 
 function displayAddProjectForm(){
