@@ -1,4 +1,5 @@
 import {Project} from './project';
+import {Todo} from './todo';
 
 const app = (function(){
     let storage = [];
@@ -26,6 +27,14 @@ const app = (function(){
         return newProject;
     }
 
+    function addTodoToProject(projectId, title, description, dueDate, priority){
+        const newTodo = new Todo(title, description, dueDate, priority);
+        const project = storage.find((project)=>project.id === projectId);
+        project.todos.push(newTodo);
+        localStorage.setItem(localStorageKey, JSON.stringify(storage));
+        return newTodo;
+    }
+
     function deleteProject(projectId){
         storage = storage.filter((project)=>project.id != projectId);
         localStorage.setItem(localStorageKey, JSON.stringify(storage));
@@ -36,7 +45,7 @@ const app = (function(){
         return selectedProject.todos;
     }
 
-    return {getStorage, addProject, deleteProject, getProjectTodos}
+    return {getStorage, addProject, deleteProject, getProjectTodos, addTodoToProject}
 })();
 
 export default app;

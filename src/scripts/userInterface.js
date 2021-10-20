@@ -86,6 +86,11 @@ function renderProjectTodos(projectId){
         todoList.appendChild(todoListItem);
     });
 
+    const addTodoButton = createAddTodoButton(projectId);
+    todoListSection.appendChild(addTodoButton);
+}
+
+function createAddTodoButton(projectId){
     const addTodoButton = document.createElement("button");
     addTodoButton.id = 'add-todo-button';
     addTodoButton.textContent = '+ add todo';
@@ -93,11 +98,14 @@ function renderProjectTodos(projectId){
         e.stopPropagation();
         renderAddTodoForm(projectId);
     });
-    todoListSection.appendChild(addTodoButton);
+    return addTodoButton;
 }
 
 function renderAddTodoForm(projectId){
     const todoListSection = document.querySelector('#todo-list-section');
+    const addTodoButton = document.querySelector('#add-todo-button');
+    todoListSection.removeChild(addTodoButton);
+
     const addTodoForm = document.createElement('form');
     addTodoForm.id = 'add-todo-form';
     todoListSection.appendChild(addTodoForm);
@@ -128,30 +136,60 @@ function renderAddTodoForm(projectId){
     priorityInput.required = true;
     addTodoForm.appendChild(priorityInput);
 
-    const addTodoButton = document.createElement('button');
-    addTodoButton.textContent = 'Add';
-    addTodoButton.type = 'button';
-    addTodoButton.addEventListener('click', ()=> {
+    const errorMessage = document.createElement('p');
+    errorMessage.id = 'error-msg';
+    addTodoForm.appendChild(errorMessage);
+
+    const confirmAddButton = document.createElement('button');
+    confirmAddButton.textContent = 'Add';
+    confirmAddButton.type = 'button';
+    confirmAddButton.addEventListener('click', ()=> {
         const title = titleInput.value;
         const description = descriptionInput.value;
         const dueDate = dueDateInput.value;
         const priority = priorityInput.value;
         addTodoToProject(projectId, title, description, dueDate, priority);
-        todoListSection.removeChild(addTodoForm);
     });
+    addTodoForm.appendChild(confirmAddButton);
+
     const cancelAddButton = document.createElement('button');
     cancelAddButton.textContent = 'Cancel';
     cancelAddButton.type = 'button';
     cancelAddButton.addEventListener('click', ()=>{
-        todoListSection.removeChild(addTodoForm);
+        cancelAddTodoToProject(projectId);
     });
 
-    addTodoForm.appendChild(addTodoButton);
     addTodoForm.appendChild(cancelAddButton);
 }
 
 function addTodoToProject(projectId, title, description, dueDate, priority){
+    if(title === "" || description === "" || dueDate === "" || priority === "" || isNaN(priority) ||
+     (dueDate instanceof Date && !isNaN(dueDate))){
+        const errorMessage = document.querySelector('#error-msg');
+        errorMessage.textContent = 'Please fill all the field';
+    } else {
+        const todoListSection = document.querySelector('#todo-list-section');
+        const addTodoForm = document.querySelector('#add-todo-form');
+        const newTodo = app.addTodoToProject(projectId, title, description, dueDate, priority);
+        todoListSection.removeChild(addTodoForm);
+        const addTodoButton = createAddTodoButton(projectId);
+        todoListSection.appendChild(addTodoButton);
+        renderNewTodo(newTodo);
+    }
+}
 
+function renderNewTodo(todo){
+    const todoList = document.querySelector('#todo-list');
+    const newTodoListItem = renderTodoListItem(todo);
+    todoList.appendChild(newTodoListItem);
+}
+
+function cancelAddTodoToProject(projectId){
+    const todoListSection = document.querySelector('#todo-list-section');
+    const addTodoForm = document.querySelector('#add-todo-form');
+    todoListSection.removeChild(addTodoForm);
+    const addTodoButton = createAddTodoButton(projectId);
+    todoListSection.appendChild(addTodoButton);
 }
 
 function renderTodoListItem(todo){
