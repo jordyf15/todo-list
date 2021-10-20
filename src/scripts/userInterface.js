@@ -30,9 +30,6 @@ function renderMain(){
 
     const todoListSection = document.createElement('section');
     todoListSection.id = 'todo-list-section';
-    const todoList = document.createElement('ul');
-    todoList.id = 'todo-list';
-    todoListSection.appendChild(todoList);
     main.appendChild(todoListSection);
 }
 
@@ -76,12 +73,31 @@ function renderSavedProjects(){
 }
 
 function renderProjectTodos(projectId){
+    const todoListSection = document.querySelector('#todo-list-section');
+    todoListSection.innerHTML = '';
+  
+    const todoList = document.createElement('ul');
+    todoList.id = 'todo-list';
+    todoListSection.appendChild(todoList);
+
     const projectTodos = app.getProjectTodos(projectId);
-    const todoList = document.querySelector('#todo-list');
     projectTodos.forEach((todo)=>{
         const todoListItem = renderTodoListItem(todo);
         todoList.appendChild(todoListItem);
     });
+
+    const addTodoButton = document.createElement("button");
+    addTodoButton.id = 'add-todo-button';
+    addTodoButton.textContent = '+ add todo';
+    addTodoButton.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        renderAddTodoForm(projectId);
+    });
+    todoListSection.appendChild(addTodoButton);
+}
+
+function renderAddTodoForm(projectId){
+    console.log(projectId);
 }
 
 function renderTodoListItem(todo){
@@ -145,10 +161,10 @@ function addProject(projectName){
 }
 
 function renderProject(project, parent){
-    const viewProjectButton = document.createElement('li');
-    viewProjectButton.className = 'project-list-items';
-    viewProjectButton.textContent = project.name;
-    viewProjectButton.addEventListener('click',()=>{
+    const viewProject = document.createElement('li');
+    viewProject.className = 'project-list-items';
+    viewProject.textContent = project.name;
+    viewProject.addEventListener('click',()=>{
         renderProjectTodos(project.id);
     });
 
@@ -160,9 +176,9 @@ function renderProject(project, parent){
         deleteProject(project.id);
         parent.removeChild(viewProjectButton);
     });
-    viewProjectButton.appendChild(deleteProjectButton);
+    viewProject.appendChild(deleteProjectButton);
 
-    parent.appendChild(viewProjectButton);
+    parent.appendChild(viewProject);
 }
 
 function deleteProject(id){
