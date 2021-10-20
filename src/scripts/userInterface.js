@@ -191,12 +191,75 @@ function deleteTodo(todoId, projectId){
     app.deleteTodo(todoId, projectId);
 }
 
+function viewTodoDetail(todo, projectId){
+    const todoListSection = document.querySelector('#todo-list-section');
+
+    const viewTodoContainer = document.createElement('div');
+    viewTodoContainer.id = 'view-todo-container';
+    todoListSection.appendChild(viewTodoContainer);
+
+    const viewTodoForm = document.createElement('form');
+    viewTodoForm.id = 'view-todo-form';
+    viewTodoContainer.appendChild(viewTodoForm);
+
+    const viewTodoTitle = document.createElement('input');
+    viewTodoTitle.value = todo.title;
+    viewTodoTitle.type = 'text';
+    viewTodoTitle.id = 'view-todo-title';
+    viewTodoTitle.disabled = true;
+    viewTodoForm.appendChild(viewTodoTitle);
+
+    const viewTodoDescription = document.createElement('input');
+    viewTodoDescription.value = todo.description;
+    viewTodoDescription.type = 'text';
+    viewTodoDescription.id = 'view-todo-description';
+    viewTodoDescription.disabled = true;
+    viewTodoForm.appendChild(viewTodoDescription);
+
+    const viewTodoDueDate = document.createElement('input');
+    viewTodoDueDate.value = todo.dueDate;
+    viewTodoDueDate.type = 'date';
+    viewTodoDueDate.id = 'view-todo-duedate';
+    viewTodoDueDate.disabled = true;
+    viewTodoForm.appendChild(viewTodoDueDate);
+
+    const viewTodoPriority = document.createElement('input');
+    viewTodoPriority.value = todo.priority;
+    viewTodoPriority.type = 'number';
+    viewTodoPriority.min = '1';
+    viewTodoPriority.max = '5';
+    viewTodoPriority.id = 'view-todo-priority';
+    viewTodoPriority.disabled = true;
+    viewTodoForm.appendChild(viewTodoPriority);
+
+    const errorMessage = document.createElement('p');
+    errorMessage.className = 'error-message';
+    viewTodoForm.appendChild(errorMessage);
+
+    const editTodoButton = document.createElement('button');
+    editTodoButton.textContent = 'edit';
+    editTodoButton.id = 'edit-todo-button';
+    editTodoButton.addEventListener('click', (e)=>{
+        e.stopPropagation();
+    });
+    viewTodoForm.appendChild(editTodoButton);
+
+    const exitViewButton = document.createElement('button');
+    exitViewButton.textContent = 'exit view';
+    exitViewButton.id = 'exit-view-todo';
+    exitViewButton.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        todoListSection.removeChild(viewTodoContainer);
+    });
+    viewTodoForm.appendChild(exitViewButton);
+}
+
 function renderTodoListItem(todo, projectId){
     const todoList = document.querySelector('#todo-list');
     const todoListItem = document.createElement('li');
     todoListItem.className = 'todo-list-item';
     todoListItem.addEventListener('click', ()=>{
-        console.log(todo.id);
+        viewTodoDetail(todo,projectId);
     });
     // selesain todoListItem nya tpi commit nya pake amend yaaa
     todoList.appendChild(todoListItem);
