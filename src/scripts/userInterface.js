@@ -1,4 +1,5 @@
 import app from './app.js';
+import {format} from 'date-fns';
 
 function renderSkeleton(){
     renderHeader();
@@ -82,7 +83,7 @@ function renderProjectTodos(projectId){
 
     const projectTodos = app.getProjectTodos(projectId);
     projectTodos.forEach((todo)=>{
-        renderTodoListItem(todo);
+        renderTodoListItem(todo, projectId);
     });
 
     const addTodoButton = createAddTodoButton(projectId);
@@ -173,7 +174,7 @@ function addTodoToProject(projectId, title, description, dueDate, priority){
         todoListSection.removeChild(addTodoForm);
         const addTodoButton = createAddTodoButton(projectId);
         todoListSection.appendChild(addTodoButton);
-        renderTodoListItem(newTodo);
+        renderTodoListItem(newTodo, projectId);
     }
 }
 
@@ -185,14 +186,44 @@ function cancelAddTodoToProject(projectId){
     todoListSection.appendChild(addTodoButton);
 }
 
-function renderTodoListItem(todo){
+function renderTodoListItem(todo, projectId){
     const todoList = document.querySelector('#todo-list');
     const todoListItem = document.createElement('li');
     todoListItem.className = 'todo-list-item';
     todoListItem.addEventListener('click', ()=>{
         console.log(todo.id);
     });
+    // selesain todoListItem nya tpi commit nya pake amend yaaa
     todoList.appendChild(todoListItem);
+
+    const todoTitle = document.createElement('span');
+    todoTitle.className = 'todo-title';
+    todoTitle.textContent = todo.title;
+    todoListItem.appendChild(todoTitle);
+
+    const todoDueDate = document.createElement('span');
+    todoDueDate.className = 'todo-duedate';
+    const dueDate = new Date(todo.dueDate)
+    todoDueDate.textContent = format(dueDate, 'dd-MM-yyyy');
+    todoListItem.appendChild(todoDueDate);
+
+    const todoPriority = document.createElement('span');
+    todoPriority.className = 'todo-priority';
+    todoPriority.textContent = todo.priority;
+    todoListItem.appendChild(todoPriority);
+
+    const deleteTodo = document.createElement('button');
+    deleteTodo.className = 'delete-todo-button';
+    deleteTodo.textContent = 'delete';
+    deleteTodo.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        deleteTodo(todo.id, projectId)
+    });
+
+}
+
+function deleteTodo(todoId, projectId){
+
 }
 
 function displayAddProjectForm(){
