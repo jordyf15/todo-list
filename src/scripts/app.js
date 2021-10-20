@@ -26,7 +26,12 @@ const app = (function(){
         return newProject;
     }
 
-    return {getStorage, addProject}
+    function deleteProject(projectId){
+        storage = storage.filter((project)=>project.id != projectId);
+        localStorage.setItem(localStorageKey, JSON.stringify(storage));
+    }
+
+    return {getStorage, addProject, deleteProject}
 })();
 
 export default app;

@@ -124,7 +124,22 @@ function renderProject(project, parent){
     viewProjectButton.addEventListener('click',()=>{
         console.log(project.id);
     });
+
+    const deleteProjectButton = document.createElement('button');
+    deleteProjectButton.className = 'delete-project-buttons';
+    deleteProjectButton.textContent = 'X';
+    deleteProjectButton.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        deleteProject(project.id);
+        parent.removeChild(viewProjectButton);
+    });
+    viewProjectButton.appendChild(deleteProjectButton);
+
     parent.appendChild(viewProjectButton);
+}
+
+function deleteProject(id){
+    app.deleteProject(id);
 }
 
 function cancelAddProject(){
