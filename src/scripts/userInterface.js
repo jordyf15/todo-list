@@ -113,6 +113,8 @@ function addProject(projectName){
     }else{
         const newProject = app.addProject(projectName);
         const projectSection = document.querySelector('#project-section');
+        const addProjectForm = document.querySelector('#add-project-form');
+        projectSection.removeChild(addProjectForm);
         renderProject(newProject, projectSection);
     }
 }
