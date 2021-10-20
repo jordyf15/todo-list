@@ -22,6 +22,9 @@ function renderMain(){
 
     const projectSection = document.createElement('section');
     projectSection.id = 'project-section';
+    const projectList = document.createElement('ul');
+    projectList.id = 'project-list';
+    projectSection.appendChild(projectList);
     main.appendChild(projectSection);
     renderSavedProjects();
 
@@ -58,10 +61,11 @@ function renderFooter(){
 
 function renderSavedProjects(){
     const projectSection = document.querySelector('#project-section');
+    const projectList = document.querySelector('#project-list');
 
     const projects = app.getStorage();
     projects.forEach((project)=>{
-        renderProject(project, projectSection);
+        renderProject(project, projectList);
     });
 
     const addProjectButton = document.createElement('button');
@@ -141,8 +145,8 @@ function addProject(projectName){
 }
 
 function renderProject(project, parent){
-    const viewProjectButton = document.createElement('button');
-    viewProjectButton.className = 'view-project-buttons';
+    const viewProjectButton = document.createElement('li');
+    viewProjectButton.className = 'project-list-items';
     viewProjectButton.textContent = project.name;
     viewProjectButton.addEventListener('click',()=>{
         renderProjectTodos(project.id);
