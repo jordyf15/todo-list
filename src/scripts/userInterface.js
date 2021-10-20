@@ -23,7 +23,7 @@ function renderMain(){
     const projectSection = document.createElement('section');
     projectSection.id = 'project-section';
     main.appendChild(projectSection);
-    renderProjects();
+    renderSavedProjects();
 
     const todoListSection = document.createElement('section');
     todoListSection.id = 'todo-list-section';
@@ -53,18 +53,12 @@ function renderFooter(){
     footerText.appendChild(linkedinAnchor);
 }
 
-function renderProjects(){
+function renderSavedProjects(){
     const projectSection = document.querySelector('#project-section');
 
     const projects = app.getStorage();
     projects.forEach((project)=>{
-        const viewProjectButton = document.createElement('button');
-        viewProjectButton.className = 'view-project-buttons';
-        viewProjectButton.textContent = project.name;
-        viewProjectButton.addEventListener('click',()=>{
-            console.log(project.id);
-        });
-        projectSection.appendChild(viewProjectButton);
+        renderProject(project, projectSection);
     });
 
     const addProjectButton = document.createElement('button');
