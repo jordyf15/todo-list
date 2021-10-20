@@ -97,7 +97,61 @@ function renderProjectTodos(projectId){
 }
 
 function renderAddTodoForm(projectId){
-    console.log(projectId);
+    const todoListSection = document.querySelector('#todo-list-section');
+    const addTodoForm = document.createElement('form');
+    addTodoForm.id = 'add-todo-form';
+    todoListSection.appendChild(addTodoForm);
+    
+    const titleInput = document.createElement('input');
+    titleInput.type = 'text';
+    titleInput.placeholder = 'Title';
+    titleInput.id = 'title-input';
+    titleInput.required = true;
+    addTodoForm.appendChild(titleInput);
+
+    const descriptionInput = document.createElement('input');
+    descriptionInput.type = 'text';
+    descriptionInput.placeholder = 'Description';
+    descriptionInput.id = 'description-input';
+    descriptionInput.required = true;
+    addTodoForm.appendChild(descriptionInput);
+
+    const dueDateInput = document.createElement('input');
+    dueDateInput.type = 'date';
+    dueDateInput.id = 'duedate-input';
+    dueDateInput.required= true;
+    addTodoForm.appendChild(dueDateInput);
+
+    const priorityInput = document.createElement('input');
+    priorityInput.type = 'number';
+    priorityInput.id = 'priority-input';
+    priorityInput.required = true;
+    addTodoForm.appendChild(priorityInput);
+
+    const addTodoButton = document.createElement('button');
+    addTodoButton.textContent = 'Add';
+    addTodoButton.type = 'button';
+    addTodoButton.addEventListener('click', ()=> {
+        const title = titleInput.value;
+        const description = descriptionInput.value;
+        const dueDate = dueDateInput.value;
+        const priority = priorityInput.value;
+        addTodoToProject(projectId, title, description, dueDate, priority);
+        todoListSection.removeChild(addTodoForm);
+    });
+    const cancelAddButton = document.createElement('button');
+    cancelAddButton.textContent = 'Cancel';
+    cancelAddButton.type = 'button';
+    cancelAddButton.addEventListener('click', ()=>{
+        todoListSection.removeChild(addTodoForm);
+    });
+
+    addTodoForm.appendChild(addTodoButton);
+    addTodoForm.appendChild(cancelAddButton);
+}
+
+function addTodoToProject(projectId, title, description, dueDate, priority){
+
 }
 
 function renderTodoListItem(todo){
