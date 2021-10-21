@@ -41,6 +41,16 @@ const app = (function(){
         localStorage.setItem(localStorageKey, JSON.stringify(storage));
     }
 
+    function editTodo(todoId, projectId, title, description, dueDate, priority){
+        const project = storage.find((project)=>project.id === projectId);
+        const editedTodo = project.todos.find((todo)=>todo.id === todoId);
+        editedTodo.title = title;
+        editedTodo.description = description;
+        editedTodo.dueDate = dueDate;
+        editedTodo.priority = priority;
+        localStorage.setItem(localStorageKey, JSON.stringify(storage));
+    }
+
     function deleteProject(projectId){
         storage = storage.filter((project)=>project.id != projectId);
         localStorage.setItem(localStorageKey, JSON.stringify(storage));
@@ -51,7 +61,7 @@ const app = (function(){
         return selectedProject.todos;
     }
 
-    return {getStorage, addProject, deleteProject, getProjectTodos, addTodoToProject, deleteTodo}
+    return {getStorage, addProject, deleteProject, getProjectTodos, addTodoToProject, deleteTodo, editTodo}
 })();
 
 export default app;
