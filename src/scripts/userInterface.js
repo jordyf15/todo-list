@@ -1,5 +1,6 @@
 import app from './app.js';
 import {format} from 'date-fns';
+import { de } from 'date-fns/locale';
 
 function renderSkeleton(){
     renderHeader();
@@ -233,25 +234,111 @@ function viewTodoDetail(todo, projectId){
     viewTodoForm.appendChild(viewTodoPriority);
 
     const errorMessage = document.createElement('p');
-    errorMessage.className = 'error-message';
+    errorMessage.id = 'error-message';
     viewTodoForm.appendChild(errorMessage);
 
-    const editTodoButton = document.createElement('button');
-    editTodoButton.textContent = 'edit';
-    editTodoButton.id = 'edit-todo-button';
-    editTodoButton.addEventListener('click', (e)=>{
+    const enableEditTodoButton = document.createElement('button');
+    enableEditTodoButton.textContent = 'edit';
+    enableEditTodoButton.id = 'enable-edit-todo-button';
+    enableEditTodoButton.type = 'button';
+    enableEditTodoButton.addEventListener('click', (e)=>{
         e.stopPropagation();
+        enableEditTodoButton.disabled = true;
+        enableEditTodoDetail(todo.id, projectId);
     });
-    viewTodoForm.appendChild(editTodoButton);
+    viewTodoForm.appendChild(enableEditTodoButton);
 
     const exitViewButton = document.createElement('button');
     exitViewButton.textContent = 'exit view';
+    exitViewButton.type = 'button';
     exitViewButton.id = 'exit-view-todo';
     exitViewButton.addEventListener('click', (e)=>{
         e.stopPropagation();
         todoListSection.removeChild(viewTodoContainer);
     });
     viewTodoForm.appendChild(exitViewButton);
+}
+
+function enableEditTodoDetail(todoId, projectId){
+    const viewTodoForm = document.querySelector('#view-todo-form');
+    const viewTodoTitle = document.querySelector('#view-todo-title');
+    viewTodoTitle.disabled = false;
+    const viewTodoDescription = document.querySelector('#view-todo-description');
+    viewTodoDescription.disabled = false;
+    const viewTodoDueDate = document.querySelector('#view-todo-duedate');
+    viewTodoDueDate.disabled = false;
+    const viewTodoPriority = document.querySelector('#view-todo-priority');
+    viewTodoPriority.disabled = false;
+
+    const editTodoButton = document.createElement('button');
+    editTodoButton.id = 'edit-todo-button';
+    editTodoButton.textContent = 'Edit';
+    editTodoButton.type = 'button';
+    editTodoButton.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        const title = viewTodoTitle.value;
+        const description = viewTodoDescription.value;
+        const dueDate = viewTodoDueDate.value;
+        const priority = viewTodoPriority.value;
+        editTodo(todoId, projectId, 
+            {title, description, dueDate, priority});
+    });
+    viewTodoForm.appendChild(editTodoButton);
+
+    const cancelEditTodoButton = document.createElement('button');
+    cancelEditTodoButton.id = 'cancel-edit-todo-button';
+    cancelEditTodoButton.textContent = 'cancel edit';
+    cancelEditTodoButton.type = 'button';
+    cancelEditTodoButton.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        cancelEditTodo();
+    });
+    viewTodoForm.appendChild(cancelEditTodoButton);
+}
+
+function editTodo(todoId, projectId, {title, description, dueDate, priority}){
+    if(title === '' || description === '' || dueDate === '' || priority === ''){
+        const errorMessage = document.querySelector('#error-message');
+        errorMessage.textContent = 'please fill the form properly';
+    } else {
+        app.editTodo(todoId,projectId, title, description, dueDate, priority);
+        const viewTodoForm = document.querySelector('#view-todo-form');
+        const editTodoButton = document.querySelector('#edit-todo-button');
+        const cancelEditTodoButton = document.querySelector('#cancel-edit-todo-button');
+        viewTodoForm.removeChild(editTodoButton);
+        viewTodoForm.removeChild(cancelEditTodoButton);
+
+        const enableEditTodoButton = document.querySelector('#enable-edit-todo-button');
+        enableEditTodoButton.disabled = false;
+        const viewTodoTitle = document.querySelector('#view-todo-title');
+        viewTodoTitle.disabled = true;
+        const viewTodoDescription = document.querySelector('#view-todo-description');
+        viewTodoDescription.disabled = true;
+        const viewTodoDueDate = document.querySelector('#view-todo-duedate');
+        viewTodoDueDate.disabled = true;
+        const viewTodoPriority = document.querySelector('#view-todo-priority');
+        viewTodoPriority.disabled = true;
+    }
+}
+
+function cancelEditTodo(){
+    const viewTodoForm = document.querySelector('#view-todo-form');
+    const cancelEditTodoButton = document.querySelector('cancel-edit-todo-button');
+    const editTodoButton = document.querySelector('edit-todo-button');
+    const enableEditTodoButton = document.querySelector('enable-edit-todo-button');
+    enableEditTodoButton.disabled = false;
+
+    const viewTodoTitle = document.querySelector('#view-todo-title');
+    viewTodoTitle.disabled = true;
+    const viewTodoDescription = document.querySelector('#view-todo-description');
+    viewTodoDescription.disabled = true;
+    const viewTodoDueDate = document.querySelector('#view-todo-duedate');
+    viewTodoDueDate.disabled = true;
+    const viewTodoPriority = document.querySelector('#view-todo-priority');
+    viewTodoPriority.disabled = true;
+    
+    viewTodoForm.removeChild(cancelEditTodoButton);
+    viewTodoForm.removeChild(editTodoButton);
 }
 
 function renderTodoListItem(todo, projectId){
