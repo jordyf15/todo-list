@@ -267,6 +267,11 @@ function enableEditTodoDetail(todoId, projectId){
     const viewTodoPriority = document.querySelector('#view-todo-priority');
     viewTodoPriority.disabled = false;
 
+    const prevTitle = viewTodoTitle.value;
+    const prevDescription = viewTodoDescription.value;
+    const prevDueDate = viewTodoDueDate.value;
+    const prevPriority = viewTodoPriority.value;
+
     const editTodoButton = document.createElement('button');
     editTodoButton.id = 'edit-todo-button';
     editTodoButton.textContent = 'Edit';
@@ -289,7 +294,7 @@ function enableEditTodoDetail(todoId, projectId){
     cancelEditTodoButton.type = 'button';
     cancelEditTodoButton.addEventListener('click', (e)=>{
         e.stopPropagation();
-        cancelEditTodo();
+        cancelEditTodo(prevTitle, prevDescription, prevDueDate, prevPriority);
     });
     viewTodoForm.appendChild(cancelEditTodoButton);
 }
@@ -331,21 +336,25 @@ function editTodo(todoId, projectId, {title, description, dueDate, priority}){
 }
 
 
-function cancelEditTodo(){
+function cancelEditTodo(prevTitle, prevDescription, prevDueDate, prevPriority){
     const viewTodoForm = document.querySelector('#view-todo-form');
-    const cancelEditTodoButton = document.querySelector('cancel-edit-todo-button');
-    const editTodoButton = document.querySelector('edit-todo-button');
-    const enableEditTodoButton = document.querySelector('enable-edit-todo-button');
+    const cancelEditTodoButton = document.querySelector('#cancel-edit-todo-button');
+    const editTodoButton = document.querySelector('#edit-todo-button');
+    const enableEditTodoButton = document.querySelector('#enable-edit-todo-button');
     enableEditTodoButton.disabled = false;
 
     const viewTodoTitle = document.querySelector('#view-todo-title');
     viewTodoTitle.disabled = true;
+    viewTodoTitle.value = prevTitle;
     const viewTodoDescription = document.querySelector('#view-todo-description');
     viewTodoDescription.disabled = true;
+    viewTodoDescription.value = prevDescription;
     const viewTodoDueDate = document.querySelector('#view-todo-duedate');
     viewTodoDueDate.disabled = true;
+    viewTodoDueDate.value = prevDueDate;
     const viewTodoPriority = document.querySelector('#view-todo-priority');
     viewTodoPriority.disabled = true;
+    viewTodoPriority.value = prevPriority;
     
     viewTodoForm.removeChild(cancelEditTodoButton);
     viewTodoForm.removeChild(editTodoButton);
