@@ -67,10 +67,7 @@ function renderSavedProjects(){
         renderProject(project, projectList);
     });
 
-    const addProjectButton = document.createElement('button');
-    addProjectButton.id = "add-project-button";
-    addProjectButton.textContent = '+ Add Project';
-    addProjectButton.addEventListener('click', displayAddProjectForm);
+    const addProjectButton = renderAddProjectButton();
     projectSection.appendChild(addProjectButton);
 }
 
@@ -407,6 +404,14 @@ function renderTodoListItem(todo, projectId){
     todoListItem.appendChild(deleteTodoButton);
 }
 
+function renderAddProjectButton(){
+    const addProjectButton = document.createElement('button');
+    addProjectButton.id = "add-project-button";
+    addProjectButton.textContent = '+ Add Project';
+    addProjectButton.addEventListener('click', displayAddProjectForm);
+    return addProjectButton;
+}
+
 function displayAddProjectForm(){
     const projectSection = document.querySelector('#project-section');
     const addProjectButton = document.querySelector('#add-project-button');
@@ -456,6 +461,8 @@ function addProject(projectName){
         const addProjectForm = document.querySelector('#add-project-form');
         projectSection.removeChild(addProjectForm);
         renderProject(newProject, projectList);
+        const addProjectButton = renderAddProjectButton();
+        projectSection.appendChild(addProjectButton);
     }
 }
 
