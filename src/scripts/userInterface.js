@@ -36,6 +36,12 @@ function renderMain(){
     todayTodos.addEventListener('click', renderTodayTodos);
     projectSection.appendChild(todayTodos);
 
+    const thisWeekTodos = document.createElement('button');
+    thisWeekTodos.textContent = 'This Week';
+    thisWeekTodos.id = 'this-week-todo-button';
+    thisWeekTodos.addEventListener('click', renderThisWeekTodos);
+    projectSection.appendChild(thisWeekTodos);
+
     const projectList = document.createElement('ul');
     projectList.id = 'project-list';
     projectSection.appendChild(projectList);
@@ -435,6 +441,20 @@ function renderTodayTodos(){
     todayTodos.forEach((item)=>{
         renderTodoListItem(item.todo, item.projectId);
     })
+}
+
+function renderThisWeekTodos(){
+    const thisWeekTodos = app.getThisWeekTodos();
+    const todoListSection = document.querySelector('#todo-list-section');
+    todoListSection.innerHTML = '';
+
+    const todoList = document.createElement('ul');
+    todoList.id = 'todo-list';
+    todoListSection.appendChild(todoList);
+
+    thisWeekTodos.forEach((item)=>{
+        renderTodoListItem(item.todo, item.projectId);
+    });
 }
 
 
