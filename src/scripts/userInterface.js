@@ -392,6 +392,9 @@ function editTodo(todoId, projectId, {title, description, dueDate, priority}){
         const viewTodoPriority = document.querySelector('#view-todo-priority');
         viewTodoPriority.disabled = true;
 
+        console.log(dueDate);
+        // sesudah update dan add todo berhasil format date yg akan disimpan dlu jadi format yg sama dipake input date
+
         updateTodoListItem(todoId, title, dueDate, priority);
     }
 }
