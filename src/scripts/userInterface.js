@@ -356,13 +356,28 @@ function cancelEditTodo(){
 function renderTodoListItem(todo, projectId){
     const todoList = document.querySelector('#todo-list');
     const todoListItem = document.createElement('li');
+   
     todoListItem.className = 'todo-list-item';
     todoListItem.id = `todo-${todo.id}`;
     todoListItem.addEventListener('click', ()=>{
         viewTodoDetail(todo,projectId);
     });
-    // selesain todoListItem nya tpi commit nya pake amend yaaa
     todoList.appendChild(todoListItem);
+
+    const todoCheckBox = document.createElement('input');
+    todoCheckBox.className = 'todo-cb';
+    todoCheckBox.type = 'checkbox';
+    todoCheckBox.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        app.doneTodo(todo.id, projectId);
+    });
+
+    if(todo.done){
+        todoListItem.classList.toggle('done-todo');
+        todoCheckBox.checked = true;
+    }
+
+    todoListItem.appendChild(todoCheckBox);
 
     const todoTitle = document.createElement('span');
     todoTitle.className = 'todo-title';
