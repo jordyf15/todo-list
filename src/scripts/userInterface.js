@@ -404,6 +404,16 @@ function cancelEditTodo(prevTitle, prevDescription, prevDueDate, prevPriority){
     const enableEditTodoButton = document.querySelector('#enable-edit-todo-button');
     enableEditTodoButton.disabled = false;
 
+    const titleErrorMessage = document.querySelector('#title-error-message');
+    const descriptionErrorMessage = document.querySelector('#description-error-message');
+    const dueDateErrorMessage = document.querySelector('#duedate-error-message');
+    const priorityErrorMessage = document.querySelector('#priority-error-message');
+
+    titleErrorMessage.textContent = '';
+    descriptionErrorMessage.textContent = '';
+    dueDateErrorMessage.textContent = '';
+    priorityErrorMessage.textContent = '';
+
     const viewTodoTitle = document.querySelector('#view-todo-title');
     viewTodoTitle.disabled = true;
     viewTodoTitle.value = prevTitle;
