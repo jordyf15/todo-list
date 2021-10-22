@@ -1,5 +1,6 @@
 import {Project} from './project';
 import {Todo} from './todo';
+import { isToday } from 'date-fns';
 
 const app = (function(){
     let storage = [];
@@ -78,7 +79,13 @@ const app = (function(){
         return todoArray;
     }
 
-    return {getStorage, addProject, deleteProject, getProjectTodos, addTodoToProject, deleteTodo, editTodo, doneTodo, getAllTodos}
+    function getTodayTodos(){
+        let todoArray = getAllTodos();
+        todoArray = todoArray.filter((item)=>isToday(new Date(item.todo.dueDate)));
+        return todoArray;
+    }
+
+    return {getStorage, addProject, deleteProject, getProjectTodos, addTodoToProject, deleteTodo, editTodo, doneTodo, getAllTodos, getTodayTodos}
 })();
 
 export default app;
