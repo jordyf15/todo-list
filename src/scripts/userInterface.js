@@ -251,6 +251,11 @@ function viewTodoDetail(todo, projectId){
     viewTodoTitle.disabled = true;
     viewTodoForm.appendChild(viewTodoTitle);
 
+    const titleErrorMessage = document.createElement('p');
+    titleErrorMessage.className = 'error-message';
+    titleErrorMessage.id = 'title-error-message';
+    viewTodoForm.appendChild(titleErrorMessage);
+
     const viewTodoDescription = document.createElement('input');
     viewTodoDescription.value = todo.description;
     viewTodoDescription.type = 'text';
@@ -258,12 +263,22 @@ function viewTodoDetail(todo, projectId){
     viewTodoDescription.disabled = true;
     viewTodoForm.appendChild(viewTodoDescription);
 
+    const descriptionErrorMessage = document.createElement('p');
+    descriptionErrorMessage.className = 'error-message';
+    descriptionErrorMessage.id = 'description-error-message';
+    viewTodoForm.appendChild(descriptionErrorMessage);
+
     const viewTodoDueDate = document.createElement('input');
     viewTodoDueDate.value = todo.dueDate;
     viewTodoDueDate.type = 'date';
     viewTodoDueDate.id = 'view-todo-duedate';
     viewTodoDueDate.disabled = true;
     viewTodoForm.appendChild(viewTodoDueDate);
+
+    const dueDateErrorMessage = document.createElement('p');
+    dueDateErrorMessage.className = 'error-message';
+    dueDateErrorMessage.id = 'duedate-error-message';
+    viewTodoForm.appendChild(dueDateErrorMessage);
 
     const viewTodoPriority = document.createElement('input');
     viewTodoPriority.value = todo.priority;
@@ -273,6 +288,11 @@ function viewTodoDetail(todo, projectId){
     viewTodoPriority.id = 'view-todo-priority';
     viewTodoPriority.disabled = true;
     viewTodoForm.appendChild(viewTodoPriority);
+
+    const priorityErrorMessage = document.createElement('p');
+    priorityErrorMessage.className = 'error-message';
+    priorityErrorMessage.id = 'priority-error-message';
+    viewTodoForm.appendChild(priorityErrorMessage);
 
     const errorMessage = document.createElement('p');
     errorMessage.id = 'error-message';
@@ -353,10 +373,7 @@ function updateTodoListItem(todoId, title, dueDate, priority){
 }
 
 function editTodo(todoId, projectId, {title, description, dueDate, priority}){
-    if(title === '' || description === '' || dueDate === '' || priority === ''){
-        const errorMessage = document.querySelector('#error-message');
-        errorMessage.textContent = 'please fill the form properly';
-    } else {
+    if(checkValidTodo(title, description, dueDate, priority)){
         app.editTodo(todoId,projectId, title, description, dueDate, priority);
         const viewTodoForm = document.querySelector('#view-todo-form');
         const editTodoButton = document.querySelector('#edit-todo-button');
