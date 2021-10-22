@@ -366,8 +366,9 @@ function enableEditTodoDetail(todoId, projectId){
 function updateTodoListItem(todoId, title, dueDate, priority){
     const todoLiTitle = document.querySelector(`#todo-${todoId} .todo-title`);
     todoLiTitle.textContent = title;
+    const formattedDueDate = format(new Date(dueDate), 'dd-MM-yyyy');
     const todoLiDueDate = document.querySelector(`#todo-${todoId} .todo-duedate`);
-    todoLiDueDate.textContent = dueDate;
+    todoLiDueDate.textContent = formattedDueDate;
     const todoLiPriority = document.querySelector(`#todo-${todoId} .todo-priority`);
     todoLiPriority.textContent = priority;
 }
