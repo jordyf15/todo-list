@@ -115,6 +115,11 @@ function renderAddTodoForm(projectId){
     titleInput.required = true;
     addTodoForm.appendChild(titleInput);
 
+    const titleErrorMessage = document.createElement('p');
+    titleErrorMessage.className = 'error-message';
+    titleErrorMessage.id = 'title-error-message';
+    addTodoForm.appendChild(titleErrorMessage);
+
     const descriptionInput = document.createElement('input');
     descriptionInput.type = 'text';
     descriptionInput.placeholder = 'Description';
@@ -122,21 +127,34 @@ function renderAddTodoForm(projectId){
     descriptionInput.required = true;
     addTodoForm.appendChild(descriptionInput);
 
+    const descriptionErrorMessage = document.createElement('p');
+    descriptionErrorMessage.className = 'error-message';
+    descriptionErrorMessage.id = 'description-error-message';
+    addTodoForm.appendChild(descriptionErrorMessage);
+
     const dueDateInput = document.createElement('input');
     dueDateInput.type = 'date';
     dueDateInput.id = 'duedate-input';
     dueDateInput.required= true;
     addTodoForm.appendChild(dueDateInput);
 
+    const dueDateErrorMessage = document.createElement('p');
+    dueDateErrorMessage.className = 'error-message';
+    dueDateErrorMessage.id = 'duedate-error-message';
+    addTodoForm.appendChild(dueDateErrorMessage);
+
     const priorityInput = document.createElement('input');
     priorityInput.type = 'number';
     priorityInput.id = 'priority-input';
     priorityInput.required = true;
+    priorityInput.min = '1';
+    priorityInput.max = '5';
     addTodoForm.appendChild(priorityInput);
 
-    const errorMessage = document.createElement('p');
-    errorMessage.id = 'error-msg';
-    addTodoForm.appendChild(errorMessage);
+    const priorityErrorMessage = document.createElement('p');
+    priorityErrorMessage.className = 'error-message';
+    priorityErrorMessage.id = 'priority-error-message';
+    addTodoForm.appendChild(priorityErrorMessage);
 
     const confirmAddButton = document.createElement('button');
     confirmAddButton.textContent = 'Add';
@@ -161,11 +179,7 @@ function renderAddTodoForm(projectId){
 }
 
 function addTodoToProject(projectId, title, description, dueDate, priority){
-    if(title === "" || description === "" || dueDate === "" || priority === "" || isNaN(priority) ||
-     (dueDate instanceof Date && !isNaN(dueDate))){
-        const errorMessage = document.querySelector('#error-msg');
-        errorMessage.textContent = 'Please fill all the field';
-    } else {
+    if(checkValidTodo(title, description, dueDate, priority)){
         const todoListSection = document.querySelector('#todo-list-section');
         const addTodoForm = document.querySelector('#add-todo-form');
         const newTodo = app.addTodoToProject(projectId, title, description, dueDate, priority);
@@ -174,6 +188,36 @@ function addTodoToProject(projectId, title, description, dueDate, priority){
         todoListSection.appendChild(addTodoButton);
         renderTodoListItem(newTodo, projectId);
     }
+}
+
+function checkValidTodo(title, description, dueDate, priority){
+    let valid = true;
+    const titleErrorMessage = document.querySelector('#title-error-message');
+    const descriptionErrorMessage = document.querySelector('#description-error-message');
+    const dueDateErrorMessage = document.querySelector('#duedate-error-message');
+    const priorityErrorMessage = document.querySelector('#priority-error-message');
+    titleErrorMessage.textContent = '';
+    descriptionErrorMessage.textContent = '';
+    dueDateErrorMessage.textContent = '';
+    priorityErrorMessage.textContent = '';
+
+    if(title === ''){
+        titleErrorMessage.textContent = 'Todo Title cannot be empty';
+        valid = false;
+    }
+    if(description === ''){
+        descriptionErrorMessage.textContent = 'Todo description cannot be empty';
+        valid = false;
+    }
+    if(dueDate === ''){
+        dueDateErrorMessage.textContent = 'Todo due date is not valid';
+        valid = false;
+    }
+    if(priority < 1 || priority >5){
+        priorityErrorMessage.textContent = 'Todo priority must be between 1 and 5';
+        valid = false;
+    }
+    return valid;
 }
 
 function cancelAddTodoToProject(projectId){
