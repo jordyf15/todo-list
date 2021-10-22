@@ -23,6 +23,13 @@ function renderMain(){
 
     const projectSection = document.createElement('section');
     projectSection.id = 'project-section';
+
+    const allTodo = document.createElement('button');
+    allTodo.textContent = 'Home';
+    allTodo.id = 'all-todo-button';
+    allTodo.addEventListener('click', renderAllTodos);
+    projectSection.appendChild(allTodo);
+
     const projectList = document.createElement('ul');
     projectList.id = 'project-list';
     projectSection.appendChild(projectList);
@@ -394,6 +401,20 @@ function editTodo(todoId, projectId, {title, description, dueDate, priority}){
 
         updateTodoListItem(todoId, title, dueDate, priority);
     }
+}
+
+function renderAllTodos(){
+    const allTodos = app.getAllTodos();
+    const todoListSection = document.querySelector('#todo-list-section');
+    todoListSection.innerHTML = '';
+  
+    const todoList = document.createElement('ul');
+    todoList.id = 'todo-list';
+    todoListSection.appendChild(todoList);
+
+    allTodos.forEach((item)=>{
+        renderTodoListItem(item.todo, item.projectId);
+    });
 }
 
 

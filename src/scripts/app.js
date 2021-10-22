@@ -68,7 +68,17 @@ const app = (function(){
         return selectedProject.todos;
     }
 
-    return {getStorage, addProject, deleteProject, getProjectTodos, addTodoToProject, deleteTodo, editTodo, doneTodo}
+    function getAllTodos(){
+        const todoArray = [];
+        storage.forEach((project)=>{
+            project.todos.forEach((todo)=>{
+                todoArray.push({todo, projectId: project.id});
+            });
+        })
+        return todoArray;
+    }
+
+    return {getStorage, addProject, deleteProject, getProjectTodos, addTodoToProject, deleteTodo, editTodo, doneTodo, getAllTodos}
 })();
 
 export default app;
