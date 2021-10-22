@@ -282,6 +282,7 @@ function enableEditTodoDetail(todoId, projectId){
         const priority = viewTodoPriority.value;
         editTodo(todoId, projectId, 
             {title, description, dueDate, priority});
+
     });
     viewTodoForm.appendChild(editTodoButton);
 
@@ -294,6 +295,15 @@ function enableEditTodoDetail(todoId, projectId){
         cancelEditTodo();
     });
     viewTodoForm.appendChild(cancelEditTodoButton);
+}
+
+function updateTodoListItem(todoId, title, dueDate, priority){
+    const todoLiTitle = document.querySelector(`#todo-${todoId} .todo-title`);
+    todoLiTitle.textContent = title;
+    const todoLiDueDate = document.querySelector(`#todo-${todoId} .todo-duedate`);
+    todoLiDueDate.textContent = dueDate;
+    const todoLiPriority = document.querySelector(`#todo-${todoId} .todo-priority`);
+    todoLiPriority.textContent = priority;
 }
 
 function editTodo(todoId, projectId, {title, description, dueDate, priority}){
@@ -318,6 +328,8 @@ function editTodo(todoId, projectId, {title, description, dueDate, priority}){
         viewTodoDueDate.disabled = true;
         const viewTodoPriority = document.querySelector('#view-todo-priority');
         viewTodoPriority.disabled = true;
+
+        updateTodoListItem(todoId, title, dueDate, priority);
     }
 }
 
@@ -345,6 +357,7 @@ function renderTodoListItem(todo, projectId){
     const todoList = document.querySelector('#todo-list');
     const todoListItem = document.createElement('li');
     todoListItem.className = 'todo-list-item';
+    todoListItem.id = `todo-${todo.id}`;
     todoListItem.addEventListener('click', ()=>{
         viewTodoDetail(todo,projectId);
     });
