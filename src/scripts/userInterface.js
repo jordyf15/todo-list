@@ -1,6 +1,5 @@
 import app from './app.js';
-import {format} from 'date-fns';
-import { de } from 'date-fns/locale';
+import {format, isValid} from 'date-fns';
 
 function renderSkeleton(){
     renderHeader();
@@ -209,7 +208,7 @@ function checkValidTodo(title, description, dueDate, priority){
         descriptionErrorMessage.textContent = 'Todo description cannot be empty';
         valid = false;
     }
-    if(dueDate === ''){
+    if(dueDate === '' || !isValid(new Date(dueDate))){
         dueDateErrorMessage.textContent = 'Todo due date is not valid';
         valid = false;
     }
