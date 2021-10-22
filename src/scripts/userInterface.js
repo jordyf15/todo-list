@@ -280,7 +280,9 @@ function enableEditTodoDetail(todoId, projectId){
         const description = viewTodoDescription.value;
         const dueDate = viewTodoDueDate.value;
         const priority = viewTodoPriority.value;
-        editTodo(todoId, projectId, title, description, dueDate, priority);
+        editTodo(todoId, projectId, 
+            {title, description, dueDate, priority});
+
     });
     viewTodoForm.appendChild(editTodoButton);
 
@@ -295,14 +297,42 @@ function enableEditTodoDetail(todoId, projectId){
     viewTodoForm.appendChild(cancelEditTodoButton);
 }
 
-function editTodo(todoId, projectId, title, description, dueDate, priority){
+function updateTodoListItem(todoId, title, dueDate, priority){
+    const todoLiTitle = document.querySelector(`#todo-${todoId} .todo-title`);
+    todoLiTitle.textContent = title;
+    const todoLiDueDate = document.querySelector(`#todo-${todoId} .todo-duedate`);
+    todoLiDueDate.textContent = dueDate;
+    const todoLiPriority = document.querySelector(`#todo-${todoId} .todo-priority`);
+    todoLiPriority.textContent = priority;
+}
+
+function editTodo(todoId, projectId, {title, description, dueDate, priority}){
     if(title === '' || description === '' || dueDate === '' || priority === ''){
         const errorMessage = document.querySelector('#error-message');
         errorMessage.textContent = 'please fill the form properly';
     } else {
         app.editTodo(todoId,projectId, title, description, dueDate, priority);
+        const viewTodoForm = document.querySelector('#view-todo-form');
+        const editTodoButton = document.querySelector('#edit-todo-button');
+        const cancelEditTodoButton = document.querySelector('#cancel-edit-todo-button');
+        viewTodoForm.removeChild(editTodoButton);
+        viewTodoForm.removeChild(cancelEditTodoButton);
+
+        const enableEditTodoButton = document.querySelector('#enable-edit-todo-button');
+        enableEditTodoButton.disabled = false;
+        const viewTodoTitle = document.querySelector('#view-todo-title');
+        viewTodoTitle.disabled = true;
+        const viewTodoDescription = document.querySelector('#view-todo-description');
+        viewTodoDescription.disabled = true;
+        const viewTodoDueDate = document.querySelector('#view-todo-duedate');
+        viewTodoDueDate.disabled = true;
+        const viewTodoPriority = document.querySelector('#view-todo-priority');
+        viewTodoPriority.disabled = true;
+
+        updateTodoListItem(todoId, title, dueDate, priority);
     }
 }
+
 
 function cancelEditTodo(){
     const viewTodoForm = document.querySelector('#view-todo-form');
@@ -327,12 +357,28 @@ function cancelEditTodo(){
 function renderTodoListItem(todo, projectId){
     const todoList = document.querySelector('#todo-list');
     const todoListItem = document.createElement('li');
+   
     todoListItem.className = 'todo-list-item';
+    todoListItem.id = `todo-${todo.id}`;
     todoListItem.addEventListener('click', ()=>{
         viewTodoDetail(todo,projectId);
     });
-    // selesain todoListItem nya tpi commit nya pake amend yaaa
     todoList.appendChild(todoListItem);
+
+    const todoCheckBox = document.createElement('input');
+    todoCheckBox.className = 'todo-cb';
+    todoCheckBox.type = 'checkbox';
+    todoCheckBox.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        app.doneTodo(todo.id, projectId);
+    });
+
+    if(todo.done){
+        todoListItem.classList.toggle('done-todo');
+        todoCheckBox.checked = true;
+    }
+
+    todoListItem.appendChild(todoCheckBox);
 
     const todoTitle = document.createElement('span');
     todoTitle.className = 'todo-title';
@@ -406,9 +452,10 @@ function addProject(projectName){
     }else{
         const newProject = app.addProject(projectName);
         const projectSection = document.querySelector('#project-section');
+        const projectList = document.querySelector('#project-list');
         const addProjectForm = document.querySelector('#add-project-form');
         projectSection.removeChild(addProjectForm);
-        renderProject(newProject, projectSection);
+        renderProject(newProject, projectList);
     }
 }
 
@@ -426,7 +473,7 @@ function renderProject(project, parent){
     deleteProjectButton.addEventListener('click', (e)=>{
         e.stopPropagation();
         deleteProject(project.id);
-        parent.removeChild(viewProjectButton);
+        parent.removeChild(viewProject);
     });
     viewProject.appendChild(deleteProjectButton);
 
