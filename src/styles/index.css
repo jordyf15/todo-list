@@ -218,9 +218,9 @@ main{
 
 .done-todo .line-through-decor{
     top: 50%;
-    left: 9%;
+    left: 60px;
     border:2px solid black;
-    width: 80%;
+    width: calc(100% - 95px);
     padding-left: 30px;
 }
 
