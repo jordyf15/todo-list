@@ -509,6 +509,11 @@ function cancelEditTodo(prevTitle, prevDescription, prevDueDate, prevPriority){
 function renderTodoListItem(todo, projectId){
     const todoList = document.querySelector('#todo-list');
     const todoListItem = document.createElement('li');
+    
+    const lineThroughDecor = document.createElement('div');
+    lineThroughDecor.className = 'line-through-decor';
+    todoListItem.appendChild(lineThroughDecor);
+    
     const todoListItemLeftPart = document.createElement('div');
     const todoListItemRightPart = document.createElement('div');
     todoListItem.appendChild(todoListItemLeftPart);
@@ -521,11 +526,16 @@ function renderTodoListItem(todo, projectId){
     });
     todoList.appendChild(todoListItem);
 
+    const checkboxContainer = document.createElement('label');
+    checkboxContainer.className = 'checkbox-container';
+    todoListItemLeftPart.appendChild(checkboxContainer);
+
     const todoCheckBox = document.createElement('input');
     todoCheckBox.className = 'todo-cb';
     todoCheckBox.type = 'checkbox';
     todoCheckBox.addEventListener('click', (e)=>{
         e.stopPropagation();
+        todoListItem.classList.toggle('done-todo');
         app.doneTodo(todo.id, projectId);
     });
 
@@ -534,7 +544,14 @@ function renderTodoListItem(todo, projectId){
         todoCheckBox.checked = true;
     }
 
-    todoListItemLeftPart.appendChild(todoCheckBox);
+    checkboxContainer.appendChild(todoCheckBox);
+
+    const checkmark = document.createElement('span');
+    checkmark.className = 'checkmark';
+    checkmark.addEventListener('click', (e)=>{
+        e.stopPropagation();
+    });
+    checkboxContainer.appendChild(checkmark);
 
     const todoTitle = document.createElement('span');
     todoTitle.className = 'todo-title';
