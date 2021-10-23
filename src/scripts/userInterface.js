@@ -1,5 +1,6 @@
 import app from './app.js';
 import {format, isValid} from 'date-fns';
+import logoImg from '../assets/images/todo-list-logo.png';
 
 function renderSkeleton(){
     renderHeader();
@@ -11,6 +12,13 @@ function renderHeader(){
     const body = document.querySelector('body');
     const header = document.createElement('header');
     body.appendChild(header);
+
+    const logo = document.createElement('img');
+    logo.alt = 'a checked checkbox';
+    logo.src = logoImg;
+    logo.id = 'logo-img';
+    header.appendChild(logo);
+
     const title = document.createElement('h1');
     title.textContent = 'Todo-list';
     header.appendChild(title);
