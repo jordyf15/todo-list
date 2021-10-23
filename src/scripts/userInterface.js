@@ -13,6 +13,16 @@ function renderHeader(){
     const header = document.createElement('header');
     body.appendChild(header);
 
+    const hamburgerButton = document.createElement('button');
+    hamburgerButton.id = 'hamburger-button';
+    hamburgerButton.innerHTML = '<i class="fas fa-bars"></i>';
+    hamburgerButton.addEventListener('click',()=>{
+        hamburgerButton.classList.toggle('hamburger-button-clicked');
+        const projectSection = document.querySelector('#project-section');
+        projectSection.classList.toggle('open');
+    });
+    header.appendChild(hamburgerButton);
+
     const logo = document.createElement('img');
     logo.alt = 'a checked checkbox';
     logo.src = logoImg;

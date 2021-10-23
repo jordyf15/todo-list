@@ -17,6 +17,7 @@ header{
     color: #fdf3d8;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
 header h1{
     margin: 15px 0;
@@ -24,6 +25,30 @@ header h1{
 header #logo-img {
     width: 50px;
     margin-right: 10px;
+}
+
+#hamburger-button{
+    font-size: 30px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    padding: 0 20px;
+    border: none;
+    background-color: transparent;
+    color: #fdf3d8;
+}
+#hamburger-button:hover{
+    background-color: #e6cbae;
+    color: black;
+}
+.hamburger-button-clicked{
+    background-color: #e6cbae !important;
+    color: black !important;
+}
+.hamburger-button-clicked:hover{
+    background-color: transparent !important;
+    color: #fdf3d8 !important;
 }
 
 main{
@@ -36,8 +61,12 @@ main{
     padding: 15px;
     width: 100vw;
     background-color: #e6cbae;
-    display: flex;
+    display: none;
     flex-direction: column;
+}
+
+#project-section.open{
+    display: flex;
 }
 
 #project-section button{
@@ -115,6 +144,7 @@ main{
 #todo-list-section{
     flex-grow: 1;
     text-align: center;
+    position: relative;
 }
 #todo-list{
     list-style: none;
@@ -295,5 +325,9 @@ footer .fab{
     }
     #project-section{
         width: 250px;
+        display: flex;
+    }
+    #hamburger-button{
+        display: none;
     }
 }
