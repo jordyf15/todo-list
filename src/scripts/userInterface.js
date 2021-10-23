@@ -123,7 +123,7 @@ function renderProjectTodos(projectId){
 function createAddTodoButton(projectId){
     const addTodoButton = document.createElement("button");
     addTodoButton.id = 'add-todo-button';
-    addTodoButton.textContent = '+ add todo';
+    addTodoButton.innerHTML = '<i class="fas fa-plus-circle"></i> Add Todo';
     addTodoButton.addEventListener('click', (e)=>{
         e.stopPropagation();
         renderAddTodoForm(projectId);

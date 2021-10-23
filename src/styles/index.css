@@ -14,7 +14,7 @@ body{
 header{
     display: flex;
     background-color: #795545;
-    color: white;
+    color: #fdf3d8;
     justify-content: center;
     align-items: center;
 }
@@ -109,11 +109,12 @@ main{
 
 #project-form-button-container button:hover{
     background-color: #795545;
-    color: white;
+    color: #fdf3d8;
 }
 
 #todo-list-section{
     flex-grow: 1;
+    text-align: center;
 }
 #todo-list{
     list-style: none;
@@ -163,7 +164,6 @@ main{
     user-select: none;
 }
   
-  /* Hide the browser's default checkbox */
 .checkbox-container .todo-cb {
     position: absolute;
     opacity: 0;
@@ -172,7 +172,6 @@ main{
     width: 0;
 }
   
-  /* Create a custom checkbox */
 .checkmark {
     position: absolute;
     top: -5px;
@@ -183,19 +182,16 @@ main{
     border-radius: 7px;
 }
   
-  /* Create the checkmark/indicator (hidden when not checked) */
 .checkmark:after {
     content: "";
     position: absolute;
     display: none;
 }
   
-  /* Show the checkmark when checked */
 .checkbox-container .todo-cb:checked ~ .checkmark:after {
     display: block;
 }
   
-  /* Style the checkmark/indicator */
 .checkbox-container .checkmark:after {
     left: 8px;
     top: -11px;
@@ -224,9 +220,24 @@ main{
     padding-left: 30px;
 }
 
+#add-todo-button{
+    background-color: transparent;
+    border: 3px solid #795545;
+    font-size: 20px;
+    padding: 5px 10px;
+    border-radius: 10px;
+    color: #795545;
+    margin-bottom: 30px;
+}
+
+#add-todo-button:hover {
+    background-color: #795545;
+    color: #fdf3d8;
+}
+
 footer{
     background-color: #795545;
-    color: white;
+    color: #fdf3d8;
     text-align: center;
 }
 footer p {
@@ -240,7 +251,7 @@ footer p a{
 }
 footer .fab{
     font-size: 26px;
-    color: white;
+    color: #fdf3d8;
 }
 
 @media only screen and (min-width: 650px) {
