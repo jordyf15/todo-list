@@ -139,6 +139,11 @@ function renderAddTodoForm(projectId){
     const addTodoForm = document.createElement('form');
     addTodoForm.id = 'add-todo-form';
     todoListSection.appendChild(addTodoForm);
+
+    const addTodoFormTitle = document.createElement('h3');
+    addTodoFormTitle.id = 'add-todo-form-title';
+    addTodoFormTitle.textContent = 'Add Todo';
+    addTodoForm.appendChild(addTodoFormTitle);
     
     const titleInput = document.createElement('input');
     titleInput.type = 'text';
@@ -164,6 +169,20 @@ function renderAddTodoForm(projectId){
     descriptionErrorMessage.id = 'description-error-message';
     addTodoForm.appendChild(descriptionErrorMessage);
 
+    const priorityInput = document.createElement('input');
+    priorityInput.type = 'number';
+    priorityInput.id = 'priority-input';
+    priorityInput.required = true;
+    priorityInput.min = '1';
+    priorityInput.max = '5';
+    priorityInput.placeholder = 'Priority (1-5)';
+    addTodoForm.appendChild(priorityInput);
+
+    const priorityErrorMessage = document.createElement('p');
+    priorityErrorMessage.className = 'error-message';
+    priorityErrorMessage.id = 'priority-error-message';
+    addTodoForm.appendChild(priorityErrorMessage);
+
     const dueDateInput = document.createElement('input');
     dueDateInput.type = 'date';
     dueDateInput.id = 'duedate-input';
@@ -175,18 +194,9 @@ function renderAddTodoForm(projectId){
     dueDateErrorMessage.id = 'duedate-error-message';
     addTodoForm.appendChild(dueDateErrorMessage);
 
-    const priorityInput = document.createElement('input');
-    priorityInput.type = 'number';
-    priorityInput.id = 'priority-input';
-    priorityInput.required = true;
-    priorityInput.min = '1';
-    priorityInput.max = '5';
-    addTodoForm.appendChild(priorityInput);
-
-    const priorityErrorMessage = document.createElement('p');
-    priorityErrorMessage.className = 'error-message';
-    priorityErrorMessage.id = 'priority-error-message';
-    addTodoForm.appendChild(priorityErrorMessage);
+    const buttonContainer = document.createElement('div');
+    buttonContainer.id = 'add-todo-form-button-container';
+    addTodoForm.appendChild(buttonContainer);
 
     const confirmAddButton = document.createElement('button');
     confirmAddButton.textContent = 'Add';
@@ -198,7 +208,7 @@ function renderAddTodoForm(projectId){
         const priority = priorityInput.value;
         addTodoToProject(projectId, title, description, dueDate, priority);
     });
-    addTodoForm.appendChild(confirmAddButton);
+    buttonContainer.appendChild(confirmAddButton);
 
     const cancelAddButton = document.createElement('button');
     cancelAddButton.textContent = 'Cancel';
@@ -207,7 +217,7 @@ function renderAddTodoForm(projectId){
         cancelAddTodoToProject(projectId);
     });
 
-    addTodoForm.appendChild(cancelAddButton);
+    buttonContainer.appendChild(cancelAddButton);
 }
 
 function addTodoToProject(projectId, title, description, dueDate, priority){

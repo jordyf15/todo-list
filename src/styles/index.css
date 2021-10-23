@@ -235,6 +235,41 @@ main{
     color: #fdf3d8;
 }
 
+#add-todo-form{
+    padding: 0 40px;
+    margin-bottom: 30px;
+}
+
+#add-todo-form-title{
+    border-top: 4px solid #795545;
+    padding-top: 20px;
+    font-size: 24px;
+}
+
+#add-todo-form-button-container button{
+    background-color: transparent;
+    border: 3px solid #795545;
+    border-radius: 10px;
+    color: #795545;
+    font-size: 18px;
+    padding: 8px 20px;
+    width: 120px;
+    margin: 0 10px;
+}
+
+#add-todo-form-button-container button:hover{
+    background-color: #795545;
+    color: #fdf3d8;
+}
+
+#add-todo-form input{
+    font-size: 16px;
+    max-width: 90%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px solid #795545;
+}
+
 footer{
     background-color: #795545;
     color: #fdf3d8;
