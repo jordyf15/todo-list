@@ -33,19 +33,19 @@ function renderMain(){
     projectSection.id = 'project-section';
 
     const allTodo = document.createElement('button');
-    allTodo.textContent = 'Home';
+    allTodo.innerHTML = '<i class="fas fa-home"></i> Home';
     allTodo.id = 'all-todo-button';
     allTodo.addEventListener('click', renderAllTodos);
     projectSection.appendChild(allTodo);
 
     const todayTodos = document.createElement('button');
-    todayTodos.textContent = 'Today';
+    todayTodos.innerHTML = '<i class="far fa-calendar"></i> Today';
     todayTodos.id = 'today-todo-button';
     todayTodos.addEventListener('click', renderTodayTodos);
     projectSection.appendChild(todayTodos);
 
     const thisWeekTodos = document.createElement('button');
-    thisWeekTodos.textContent = 'This Week';
+    thisWeekTodos.innerHTML = '<i class="far fa-calendar-alt"></i> This Week';
     thisWeekTodos.id = 'this-week-todo-button';
     thisWeekTodos.addEventListener('click', renderThisWeekTodos);
     projectSection.appendChild(thisWeekTodos);

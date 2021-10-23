@@ -28,8 +28,34 @@ header #logo-img {
 
 main{
     flex-grow: 1;
+    display: flex;
 }
 
+#project-section{
+    padding: 15px;
+    min-width: 250px;
+    background-color: #e6cbae;
+    display: flex;
+    flex-direction: column;
+}
+
+#project-section button{
+    padding: 10px 20px;
+    border:none;
+    background: none;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: left;
+}
+
+.delete-project-buttons{
+    padding: 0;  
+}
+
+
+#todo-list-section{
+    background-color:peru;
+}
 
 
 footer{
