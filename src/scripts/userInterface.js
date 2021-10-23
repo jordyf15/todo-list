@@ -476,6 +476,10 @@ function renderTodayTodos(){
     const todoListSection = document.querySelector('#todo-list-section');
     todoListSection.innerHTML = '';
 
+    const todoListTitle = document.createElement('h2');
+    todoListTitle.textContent = 'Today';
+    todoListSection.appendChild(todoListTitle);
+
     const todoList = document.createElement('ul');
     todoList.id = 'todo-list';
     todoListSection.appendChild(todoList);
