@@ -33,6 +33,7 @@ main{
 
 #project-section{
     padding: 15px;
+    width: 300px;
     min-width: 250px;
     background-color: #e6cbae;
     display: flex;
@@ -42,16 +43,74 @@ main{
 #project-section button{
     padding: 10px 20px;
     border:none;
-    background: none;
+    background-color: transparent;
     font-weight: bold;
     font-size: 18px;
     text-align: left;
+    border-radius: 10px;
+}
+#project-section button:hover{
+    background-color: #cea980;
+}
+
+#project-list-title{
+    margin: 10px 0 0;
+}
+#project-list{
+    list-style: none;
+    padding: 0;
+}
+.project-list-items{
+    padding-left: 20px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.project-list-items:hover{
+    background-color: #cea980;
 }
 
 .delete-project-buttons{
-    padding: 0;  
+    color: gray;
+    visibility: hidden;
+}
+.project-list-items:hover .delete-project-buttons{
+    visibility: visible;
+}
+.delete-project-buttons:hover{
+    color: black;
 }
 
+#add-project-input{
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px solid #cea980;
+}
+
+#project-form-button-container{
+    display: flex;
+    justify-content: space-between;
+}
+
+#add-project-input{
+    width: 100%;
+}
+
+#project-form-button-container button{
+    width: 45%;
+    text-align: center;
+    border: 2px solid #795545;
+    color: #795545;
+    font-size: 16px;
+    padding: 8px 20px;
+}
+
+#project-form-button-container button:hover{
+    background-color: #795545;
+    color: white;
+}
 
 #todo-list-section{
     background-color:peru;

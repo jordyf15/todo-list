@@ -50,6 +50,12 @@ function renderMain(){
     thisWeekTodos.addEventListener('click', renderThisWeekTodos);
     projectSection.appendChild(thisWeekTodos);
 
+
+    const projectListTitle = document.createElement('h2');
+    projectListTitle.textContent = 'Projects';
+    projectListTitle.id = 'project-list-title';
+    projectSection.appendChild(projectListTitle);
+
     const projectList = document.createElement('ul');
     projectList.id = 'project-list';
     projectSection.appendChild(projectList);
@@ -556,7 +562,7 @@ function renderTodoListItem(todo, projectId){
 function renderAddProjectButton(){
     const addProjectButton = document.createElement('button');
     addProjectButton.id = "add-project-button";
-    addProjectButton.textContent = '+ Add Project';
+    addProjectButton.innerHTML = '<i class="fas fa-plus-circle"></i> Add Project';
     addProjectButton.addEventListener('click', displayAddProjectForm);
     return addProjectButton;
 }
@@ -582,6 +588,10 @@ function displayAddProjectForm(){
     alert.id = 'alert-message';
     addProjectForm.appendChild(alert);
 
+    const buttonContainer = document.createElement('div');
+    buttonContainer.id='project-form-button-container';
+    addProjectForm.appendChild(buttonContainer);
+
     const confirmAddProjectButton = document.createElement('button');
     confirmAddProjectButton.type = 'button';
     confirmAddProjectButton.id = 'confirm-add-project-button';
@@ -589,14 +599,14 @@ function displayAddProjectForm(){
     confirmAddProjectButton.addEventListener('click', ()=>{
         addProject(addProjectInput.value);
     });
-    addProjectForm.appendChild(confirmAddProjectButton);
+    buttonContainer.appendChild(confirmAddProjectButton);
 
     const cancelProjectButton = document.createElement('button');
     cancelProjectButton.type = 'button';
     cancelProjectButton.id = 'cancel-add-project-button';
     cancelProjectButton.textContent = 'Cancel';
     cancelProjectButton.addEventListener('click', cancelAddProject);
-    addProjectForm.appendChild(cancelProjectButton);
+    buttonContainer.appendChild(cancelProjectButton);
 }
 
 function addProject(projectName){
@@ -618,14 +628,17 @@ function addProject(projectName){
 function renderProject(project, parent){
     const viewProject = document.createElement('li');
     viewProject.className = 'project-list-items';
-    viewProject.textContent = project.name;
     viewProject.addEventListener('click',()=>{
         renderProjectTodos(project.id);
     });
 
+    const projectName = document.createElement('span');
+    projectName.innerHTML = `<i class="fas fa-tasks"></i> ${project.name}`;
+    viewProject.appendChild(projectName);
+
     const deleteProjectButton = document.createElement('button');
     deleteProjectButton.className = 'delete-project-buttons';
-    deleteProjectButton.textContent = 'X';
+    deleteProjectButton.innerHTML = '<i class="far fa-trash-alt"></i>';
     deleteProjectButton.addEventListener('click', (e)=>{
         e.stopPropagation();
         deleteProject(project.id);
@@ -645,10 +658,7 @@ function cancelAddProject(){
     const projectSection = document.querySelector('#project-section');
     projectSection.removeChild(addProjectForm);
 
-    const addProjectButton = document.createElement('button');
-    addProjectButton.id = "add-project-button";
-    addProjectButton.textContent = '+ Add Project';
-    addProjectButton.addEventListener('click', displayAddProjectForm);
+    const addProjectButton = renderAddProjectButton();
     projectSection.appendChild(addProjectButton);
 }
 
