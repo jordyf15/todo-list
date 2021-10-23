@@ -72,7 +72,7 @@ main{
 }
 
 .delete-project-buttons{
-    color: gray;
+    color: darkslategrey;
     visibility: hidden;
 }
 .project-list-items:hover .delete-project-buttons{
