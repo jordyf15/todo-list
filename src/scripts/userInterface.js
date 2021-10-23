@@ -509,6 +509,15 @@ function cancelEditTodo(prevTitle, prevDescription, prevDueDate, prevPriority){
 function renderTodoListItem(todo, projectId){
     const todoList = document.querySelector('#todo-list');
     const todoListItem = document.createElement('li');
+    
+    const lineThroughDecor = document.createElement('div');
+    lineThroughDecor.className = 'line-through-decor';
+    todoListItem.appendChild(lineThroughDecor);
+    
+    const todoListItemLeftPart = document.createElement('div');
+    const todoListItemRightPart = document.createElement('div');
+    todoListItem.appendChild(todoListItemLeftPart);
+    todoListItem.appendChild(todoListItemRightPart);
    
     todoListItem.className = 'todo-list-item';
     todoListItem.id = `todo-${todo.id}`;
@@ -517,11 +526,16 @@ function renderTodoListItem(todo, projectId){
     });
     todoList.appendChild(todoListItem);
 
+    const checkboxContainer = document.createElement('label');
+    checkboxContainer.className = 'checkbox-container';
+    todoListItemLeftPart.appendChild(checkboxContainer);
+
     const todoCheckBox = document.createElement('input');
     todoCheckBox.className = 'todo-cb';
     todoCheckBox.type = 'checkbox';
     todoCheckBox.addEventListener('click', (e)=>{
         e.stopPropagation();
+        todoListItem.classList.toggle('done-todo');
         app.doneTodo(todo.id, projectId);
     });
 
@@ -530,33 +544,40 @@ function renderTodoListItem(todo, projectId){
         todoCheckBox.checked = true;
     }
 
-    todoListItem.appendChild(todoCheckBox);
+    checkboxContainer.appendChild(todoCheckBox);
+
+    const checkmark = document.createElement('span');
+    checkmark.className = 'checkmark';
+    checkmark.addEventListener('click', (e)=>{
+        e.stopPropagation();
+    });
+    checkboxContainer.appendChild(checkmark);
 
     const todoTitle = document.createElement('span');
     todoTitle.className = 'todo-title';
     todoTitle.textContent = todo.title;
-    todoListItem.appendChild(todoTitle);
+    todoListItemLeftPart.appendChild(todoTitle);
 
     const todoDueDate = document.createElement('span');
     todoDueDate.className = 'todo-duedate';
     const dueDate = new Date(todo.dueDate)
     todoDueDate.textContent = format(dueDate, 'dd-MM-yyyy');
-    todoListItem.appendChild(todoDueDate);
+    todoListItemRightPart.appendChild(todoDueDate);
 
     const todoPriority = document.createElement('span');
     todoPriority.className = 'todo-priority';
     todoPriority.textContent = todo.priority;
-    todoListItem.appendChild(todoPriority);
+    todoListItemRightPart.appendChild(todoPriority);
 
     const deleteTodoButton = document.createElement('button');
     deleteTodoButton.className = 'delete-todo-button';
-    deleteTodoButton.textContent = 'delete';
+    deleteTodoButton.innerHTML = '<i class="far fa-trash-alt"></i>';
     deleteTodoButton.addEventListener('click', (e)=>{
         e.stopPropagation();
         deleteTodo(todo.id, projectId);
         todoList.removeChild(todoListItem);
     });
-    todoListItem.appendChild(deleteTodoButton);
+    todoListItemRightPart.appendChild(deleteTodoButton);
 }
 
 function renderAddProjectButton(){
