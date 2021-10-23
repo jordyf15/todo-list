@@ -235,6 +235,18 @@ main{
     color: #fdf3d8;
 }
 
+#add-todo-form{
+    /* background-color: pink; */
+}
+
+#add-todo-form input{
+    font-size: 16px;
+    max-width: 90%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px solid #795545;
+}
+
 footer{
     background-color: #795545;
     color: #fdf3d8;

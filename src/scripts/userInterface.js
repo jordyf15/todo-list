@@ -164,6 +164,20 @@ function renderAddTodoForm(projectId){
     descriptionErrorMessage.id = 'description-error-message';
     addTodoForm.appendChild(descriptionErrorMessage);
 
+    const priorityInput = document.createElement('input');
+    priorityInput.type = 'number';
+    priorityInput.id = 'priority-input';
+    priorityInput.required = true;
+    priorityInput.min = '1';
+    priorityInput.max = '5';
+    priorityInput.placeholder = 'Priority (1-5)';
+    addTodoForm.appendChild(priorityInput);
+
+    const priorityErrorMessage = document.createElement('p');
+    priorityErrorMessage.className = 'error-message';
+    priorityErrorMessage.id = 'priority-error-message';
+    addTodoForm.appendChild(priorityErrorMessage);
+
     const dueDateInput = document.createElement('input');
     dueDateInput.type = 'date';
     dueDateInput.id = 'duedate-input';
@@ -174,19 +188,6 @@ function renderAddTodoForm(projectId){
     dueDateErrorMessage.className = 'error-message';
     dueDateErrorMessage.id = 'duedate-error-message';
     addTodoForm.appendChild(dueDateErrorMessage);
-
-    const priorityInput = document.createElement('input');
-    priorityInput.type = 'number';
-    priorityInput.id = 'priority-input';
-    priorityInput.required = true;
-    priorityInput.min = '1';
-    priorityInput.max = '5';
-    addTodoForm.appendChild(priorityInput);
-
-    const priorityErrorMessage = document.createElement('p');
-    priorityErrorMessage.className = 'error-message';
-    priorityErrorMessage.id = 'priority-error-message';
-    addTodoForm.appendChild(priorityErrorMessage);
 
     const confirmAddButton = document.createElement('button');
     confirmAddButton.textContent = 'Add';
