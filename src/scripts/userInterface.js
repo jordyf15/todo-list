@@ -494,6 +494,10 @@ function renderThisWeekTodos(){
     const todoListSection = document.querySelector('#todo-list-section');
     todoListSection.innerHTML = '';
 
+    const todoListTitle = document.createElement('h2');
+    todoListTitle.textContent = 'This Week';
+    todoListSection.appendChild(todoListTitle);
+
     const todoList = document.createElement('ul');
     todoList.id = 'todo-list';
     todoListSection.appendChild(todoList);
