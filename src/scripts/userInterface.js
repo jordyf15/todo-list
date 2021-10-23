@@ -509,6 +509,10 @@ function cancelEditTodo(prevTitle, prevDescription, prevDueDate, prevPriority){
 function renderTodoListItem(todo, projectId){
     const todoList = document.querySelector('#todo-list');
     const todoListItem = document.createElement('li');
+    const todoListItemLeftPart = document.createElement('div');
+    const todoListItemRightPart = document.createElement('div');
+    todoListItem.appendChild(todoListItemLeftPart);
+    todoListItem.appendChild(todoListItemRightPart);
    
     todoListItem.className = 'todo-list-item';
     todoListItem.id = `todo-${todo.id}`;
@@ -530,33 +534,33 @@ function renderTodoListItem(todo, projectId){
         todoCheckBox.checked = true;
     }
 
-    todoListItem.appendChild(todoCheckBox);
+    todoListItemLeftPart.appendChild(todoCheckBox);
 
     const todoTitle = document.createElement('span');
     todoTitle.className = 'todo-title';
     todoTitle.textContent = todo.title;
-    todoListItem.appendChild(todoTitle);
+    todoListItemLeftPart.appendChild(todoTitle);
 
     const todoDueDate = document.createElement('span');
     todoDueDate.className = 'todo-duedate';
     const dueDate = new Date(todo.dueDate)
     todoDueDate.textContent = format(dueDate, 'dd-MM-yyyy');
-    todoListItem.appendChild(todoDueDate);
+    todoListItemRightPart.appendChild(todoDueDate);
 
     const todoPriority = document.createElement('span');
     todoPriority.className = 'todo-priority';
     todoPriority.textContent = todo.priority;
-    todoListItem.appendChild(todoPriority);
+    todoListItemRightPart.appendChild(todoPriority);
 
     const deleteTodoButton = document.createElement('button');
     deleteTodoButton.className = 'delete-todo-button';
-    deleteTodoButton.textContent = 'delete';
+    deleteTodoButton.innerHTML = '<i class="far fa-trash-alt"></i>';
     deleteTodoButton.addEventListener('click', (e)=>{
         e.stopPropagation();
         deleteTodo(todo.id, projectId);
         todoList.removeChild(todoListItem);
     });
-    todoListItem.appendChild(deleteTodoButton);
+    todoListItemRightPart.appendChild(deleteTodoButton);
 }
 
 function renderAddProjectButton(){

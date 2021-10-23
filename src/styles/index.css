@@ -121,9 +121,38 @@ main{
 }
 
 #todo-list li{
-    padding: 10px 0;
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
 }
-
+#todo-list li:hover{
+    background-color: #efdca8;
+}
+.delete-todo-button{
+    background: none;
+    border: none;
+    visibility: hidden;
+    font-size: 18px;
+}
+#todo-list li:hover .delete-todo-button{
+    visibility: visible;
+    color: darkslategrey;
+}
+#todo-list li:hover .delete-todo-button:hover{
+    color: black;
+}
+.todo-cb{
+    -ms-transform: scale(1.5); 
+    -moz-transform: scale(1.5); 
+    -webkit-transform: scale(1.5);
+    -o-transform: scale(1.5); 
+    transform: scale(1.5);
+    padding: 10px;
+    margin-right: 10px;
+}
 
 footer{
     background-color: #795545;
@@ -144,7 +173,7 @@ footer .fab{
     color: white;
 }
 
-@media only screen and (min-width: 550px) {
+@media only screen and (min-width: 650px) {
     main {
         flex-direction: row;
     }
