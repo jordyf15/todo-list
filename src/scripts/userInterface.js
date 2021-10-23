@@ -118,10 +118,8 @@ function renderProjectTodos(projectId){
     todoListSection.innerHTML = '';
 
     const todoListTitle = document.createElement('h2');
-    todoListTitle.id = 'todo-list-title';
     todoListTitle.textContent = app.getProjectName(projectId);
     todoListSection.appendChild(todoListTitle);
-
   
     const todoList = document.createElement('ul');
     todoList.id = 'todo-list';
@@ -459,6 +457,10 @@ function renderAllTodos(){
     const allTodos = app.getAllTodos();
     const todoListSection = document.querySelector('#todo-list-section');
     todoListSection.innerHTML = '';
+
+    const todoListTitle = document.createElement('h2');
+    todoListTitle.textContent = 'Home';
+    todoListSection.appendChild(todoListTitle);
   
     const todoList = document.createElement('ul');
     todoList.id = 'todo-list';
