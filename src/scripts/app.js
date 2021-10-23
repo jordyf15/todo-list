@@ -91,7 +91,13 @@ const app = (function(){
         return thisWeekTodos;
     }
 
-    return {getStorage, addProject, deleteProject, getProjectTodos, addTodoToProject, deleteTodo, editTodo, doneTodo, getAllTodos, getTodayTodos, getThisWeekTodos}
+    function getProjectName(projectId){
+        const project = storage.find((project)=>project.id === projectId);
+        return project.name;
+    }
+
+    return {getStorage, addProject, deleteProject, getProjectTodos, addTodoToProject, deleteTodo, editTodo, doneTodo, getAllTodos, getTodayTodos, 
+        getThisWeekTodos, getProjectName}
 })();
 
 export default app;

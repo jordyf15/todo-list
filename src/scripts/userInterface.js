@@ -116,6 +116,12 @@ function renderSavedProjects(){
 function renderProjectTodos(projectId){
     const todoListSection = document.querySelector('#todo-list-section');
     todoListSection.innerHTML = '';
+
+    const todoListTitle = document.createElement('h2');
+    todoListTitle.id = 'todo-list-title';
+    todoListTitle.textContent = app.getProjectName(projectId);
+    todoListSection.appendChild(todoListTitle);
+
   
     const todoList = document.createElement('ul');
     todoList.id = 'todo-list';
