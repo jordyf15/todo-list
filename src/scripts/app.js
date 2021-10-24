@@ -1,6 +1,7 @@
-import {Project} from './project';
-import {Todo} from './todo';
 import { isToday, isThisWeek } from 'date-fns';
+import { Project } from './project';
+import { Todo } from './todo'
+
 
 const app = (function(){
     let storage = [];
