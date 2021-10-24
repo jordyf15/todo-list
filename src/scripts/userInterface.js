@@ -300,6 +300,10 @@ function viewTodoDetail(todo, projectId){
     viewTodoForm.id = 'view-todo-form';
     viewTodoContainer.appendChild(viewTodoForm);
 
+    const buttonContainer = document.createElement('div');
+    buttonContainer.id = 'view-todo-detail-button-container';
+    viewTodoForm.appendChild(buttonContainer);
+
     const viewTodoTitle = document.createElement('input');
     viewTodoTitle.value = todo.title;
     viewTodoTitle.type = 'text';
@@ -324,18 +328,6 @@ function viewTodoDetail(todo, projectId){
     descriptionErrorMessage.id = 'description-error-message';
     viewTodoForm.appendChild(descriptionErrorMessage);
 
-    const viewTodoDueDate = document.createElement('input');
-    viewTodoDueDate.value = todo.dueDate;
-    viewTodoDueDate.type = 'date';
-    viewTodoDueDate.id = 'view-todo-duedate';
-    viewTodoDueDate.disabled = true;
-    viewTodoForm.appendChild(viewTodoDueDate);
-
-    const dueDateErrorMessage = document.createElement('p');
-    dueDateErrorMessage.className = 'error-message';
-    dueDateErrorMessage.id = 'duedate-error-message';
-    viewTodoForm.appendChild(dueDateErrorMessage);
-
     const viewTodoPriority = document.createElement('input');
     viewTodoPriority.value = todo.priority;
     viewTodoPriority.type = 'number';
@@ -350,12 +342,24 @@ function viewTodoDetail(todo, projectId){
     priorityErrorMessage.id = 'priority-error-message';
     viewTodoForm.appendChild(priorityErrorMessage);
 
+    const viewTodoDueDate = document.createElement('input');
+    viewTodoDueDate.value = todo.dueDate;
+    viewTodoDueDate.type = 'date';
+    viewTodoDueDate.id = 'view-todo-duedate';
+    viewTodoDueDate.disabled = true;
+    viewTodoForm.appendChild(viewTodoDueDate);
+
+    const dueDateErrorMessage = document.createElement('p');
+    dueDateErrorMessage.className = 'error-message';
+    dueDateErrorMessage.id = 'duedate-error-message';
+    viewTodoForm.appendChild(dueDateErrorMessage);
+
     const errorMessage = document.createElement('p');
     errorMessage.id = 'error-message';
     viewTodoForm.appendChild(errorMessage);
 
     const enableEditTodoButton = document.createElement('button');
-    enableEditTodoButton.textContent = 'edit';
+    enableEditTodoButton.innerHTML = '<i class="far fa-edit"></i>';
     enableEditTodoButton.id = 'enable-edit-todo-button';
     enableEditTodoButton.type = 'button';
     enableEditTodoButton.addEventListener('click', (e)=>{
@@ -363,17 +367,17 @@ function viewTodoDetail(todo, projectId){
         enableEditTodoButton.disabled = true;
         enableEditTodoDetail(todo.id, projectId);
     });
-    viewTodoForm.appendChild(enableEditTodoButton);
+    buttonContainer.appendChild(enableEditTodoButton);
 
     const exitViewButton = document.createElement('button');
-    exitViewButton.textContent = 'exit view';
+    exitViewButton.innerHTML = '<i class="fas fa-times"></i>';
     exitViewButton.type = 'button';
     exitViewButton.id = 'exit-view-todo';
     exitViewButton.addEventListener('click', (e)=>{
         e.stopPropagation();
         todoListSection.removeChild(viewTodoContainer);
     });
-    viewTodoForm.appendChild(exitViewButton);
+    buttonContainer.appendChild(exitViewButton);
 }
 
 function enableEditTodoDetail(todoId, projectId){
@@ -392,6 +396,10 @@ function enableEditTodoDetail(todoId, projectId){
     const prevDueDate = viewTodoDueDate.value;
     const prevPriority = viewTodoPriority.value;
 
+    const buttonContainer = document.createElement('div');
+    buttonContainer.id = 'edit-todo-button-container';
+    viewTodoForm.appendChild(buttonContainer);
+
     const editTodoButton = document.createElement('button');
     editTodoButton.id = 'edit-todo-button';
     editTodoButton.textContent = 'Edit';
@@ -406,17 +414,17 @@ function enableEditTodoDetail(todoId, projectId){
             {title, description, dueDate, priority});
 
     });
-    viewTodoForm.appendChild(editTodoButton);
+    buttonContainer.appendChild(editTodoButton);
 
     const cancelEditTodoButton = document.createElement('button');
     cancelEditTodoButton.id = 'cancel-edit-todo-button';
-    cancelEditTodoButton.textContent = 'cancel edit';
+    cancelEditTodoButton.textContent = 'Cancel';
     cancelEditTodoButton.type = 'button';
     cancelEditTodoButton.addEventListener('click', (e)=>{
         e.stopPropagation();
         cancelEditTodo(prevTitle, prevDescription, prevDueDate, prevPriority);
     });
-    viewTodoForm.appendChild(cancelEditTodoButton);
+    buttonContainer.appendChild(cancelEditTodoButton);
 }
 
 function updateTodoListItem(todoId, title, dueDate, priority){
@@ -433,10 +441,8 @@ function editTodo(todoId, projectId, {title, description, dueDate, priority}){
     if(checkValidTodo(title, description, dueDate, priority)){
         app.editTodo(todoId,projectId, title, description, dueDate, priority);
         const viewTodoForm = document.querySelector('#view-todo-form');
-        const editTodoButton = document.querySelector('#edit-todo-button');
-        const cancelEditTodoButton = document.querySelector('#cancel-edit-todo-button');
-        viewTodoForm.removeChild(editTodoButton);
-        viewTodoForm.removeChild(cancelEditTodoButton);
+        const buttonContainer = document.querySelector('#edit-todo-button-container');
+        viewTodoForm.removeChild(buttonContainer);
 
         const enableEditTodoButton = document.querySelector('#enable-edit-todo-button');
         enableEditTodoButton.disabled = false;
@@ -510,8 +516,8 @@ function renderThisWeekTodos(){
 
 function cancelEditTodo(prevTitle, prevDescription, prevDueDate, prevPriority){
     const viewTodoForm = document.querySelector('#view-todo-form');
-    const cancelEditTodoButton = document.querySelector('#cancel-edit-todo-button');
-    const editTodoButton = document.querySelector('#edit-todo-button');
+    const buttonContainer = document.querySelector('#edit-todo-button-container');
+
     const enableEditTodoButton = document.querySelector('#enable-edit-todo-button');
     enableEditTodoButton.disabled = false;
 
@@ -538,8 +544,7 @@ function cancelEditTodo(prevTitle, prevDescription, prevDueDate, prevPriority){
     viewTodoPriority.disabled = true;
     viewTodoPriority.value = prevPriority;
     
-    viewTodoForm.removeChild(cancelEditTodoButton);
-    viewTodoForm.removeChild(editTodoButton);
+    viewTodoForm.removeChild(buttonContainer);
 }
 
 function renderTodoListItem(todo, projectId){
@@ -559,6 +564,10 @@ function renderTodoListItem(todo, projectId){
     todoListItem.id = `todo-${todo.id}`;
     todoListItem.addEventListener('click', ()=>{
         viewTodoDetail(todo,projectId);
+        const projectSection = document.querySelector('#project-section');
+        projectSection.classList.remove('open');
+        const hamburgerButton = document.querySelector('#hamburger-button');
+        hamburgerButton.classList.remove('hamburger-button-clicked');
     });
     todoList.appendChild(todoListItem);
 
