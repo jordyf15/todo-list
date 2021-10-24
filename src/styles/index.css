@@ -55,18 +55,24 @@ main{
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 #project-section{
     padding: 15px;
     width: 100vw;
     background-color: #e6cbae;
-    display: none;
+    display: flex;
+    position: absolute;
     flex-direction: column;
+    z-index: 3;
+    top: 0;
+    transform: translateX(-100vw);
+    transition: transform 0.5s;
 }
 
 #project-section.open{
-    display: flex;
+    transform: translateX(0);
 }
 
 #project-section button{
@@ -385,6 +391,8 @@ footer .fab{
     #project-section{
         width: 250px;
         display: flex;
+        position: relative;
+        transform: translateX(0);
     }
     #hamburger-button{
         display: none;
