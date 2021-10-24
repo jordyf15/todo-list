@@ -274,12 +274,16 @@ main{
 #add-todo-form{
     padding: 0 40px;
     margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #add-todo-form-title{
     border-top: 4px solid #795545;
     padding-top: 20px;
     font-size: 24px;
+    width: 100%;
 }
 
 #add-todo-form-button-container button{
