@@ -38,7 +38,7 @@ header #logo-img {
     background-color: transparent;
     color: #fdf3d8;
 }
-#hamburger-button:hover{
+#hamburger-button:hover, #hamburger-button:active{
     background-color: #e6cbae;
     color: black;
 }
@@ -46,7 +46,7 @@ header #logo-img {
     background-color: #e6cbae !important;
     color: black !important;
 }
-.hamburger-button-clicked:hover{
+.hamburger-button-clicked:hover, .hamburger-button-clicked:active{
     background-color: transparent !important;
     color: #fdf3d8 !important;
 }
@@ -84,7 +84,7 @@ main{
     text-align: left;
     border-radius: 10px;
 }
-#project-section button:hover{
+#project-section button:hover, #project-section button:active{
     background-color: #cea980;
 }
 
@@ -102,7 +102,7 @@ main{
     align-items: center;
     justify-content: space-between;
 }
-.project-list-items:hover{
+.project-list-items:hover, .project-list-items:active{
     background-color: #cea980;
 }
 
@@ -113,7 +113,7 @@ main{
 .project-list-items:hover .delete-project-buttons{
     visibility: visible;
 }
-.delete-project-buttons:hover{
+.delete-project-buttons:hover, .delete-project-buttons:active{
     color: black;
 }
 
@@ -142,7 +142,7 @@ main{
     padding: 8px 20px;
 }
 
-#project-form-button-container button:hover{
+#project-form-button-container button:hover, #project-form-button-container button:active{
     background-color: #795545;
     color: #fdf3d8;
 }
@@ -179,11 +179,11 @@ main{
     visibility: hidden;
     font-size: 18px;
 }
-#todo-list li:hover .delete-todo-button{
+#todo-list li:hover .delete-todo-button, #todo-list li:active .delete-todo-button{
     visibility: visible;
     color: darkslategrey;
 }
-#todo-list li:hover .delete-todo-button:hover{
+#todo-list li:hover .delete-todo-button:hover, #todo-list li:active .delete-todo-button:active{
     color: black;
 }
 
@@ -266,7 +266,7 @@ main{
     margin-bottom: 30px;
 }
 
-#add-todo-button:hover {
+#add-todo-button:hover, #add-todo-button:active {
     background-color: #795545;
     color: #fdf3d8;
 }
@@ -293,7 +293,7 @@ main{
     margin: 0 10px;
 }
 
-#add-todo-form-button-container button:hover{
+#add-todo-form-button-container button:hover, #add-todo-form-button-container button:active{
     background-color: #795545;
     color: #fdf3d8;
 }
@@ -343,7 +343,7 @@ main{
     padding: 7px 10px;
 }
 
-#view-todo-detail-button-container button:hover{
+#view-todo-detail-button-container button:hover, #view-todo-detail-button-container button:active{
     color: black;
 }
 #view-todo-detail-button-container button:disabled{
@@ -361,7 +361,7 @@ main{
     margin: 0 10px;
 }
 
-#edit-todo-button-container button:hover{
+#edit-todo-button-container button:hover, #edit-todo-button-container button:active{
     background-color: #795545;
     color: #fdf3d8;
 }   
@@ -370,6 +370,12 @@ footer{
     color: #fdf3d8;
     text-align: center;
 }
+
+.todo-priority{
+    margin-left: 10px;
+    text-decoration: underline;
+}
+
 footer p {
     display: flex;
     align-items: center;
