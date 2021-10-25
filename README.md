@@ -13,7 +13,7 @@ Below are the assignments of the projects:
 6. Use localStorage to save user’s projects and todos between sessions.
 
 ## Live Demo
-https://jordyf15.github.io/todo-list/
+https://todo-list.jordyf15.repl.co/
 
 ## Installation and Usage
 Input the following command one-by-one to the terminal.
